@@ -1,0 +1,10 @@
+<nav class="app-bar">
+  <ul class="flex-fill">
+    <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <apps-button routerLink="/" [label]="'Chat'" [icon]="'chat'" [isActive]="isActive('/')" />
+    </li>
+    <li routerLinkActive="active">
+      <apps-button routerLink="/portfolio" [label]="'Portfolio'" [icon]="'folder'" [isActive]="isActive('/portfolio')" />
+    </li>
+  </ul>
+</nav>
