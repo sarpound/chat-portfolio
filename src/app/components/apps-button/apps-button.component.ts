@@ -10,5 +10,6 @@ export class AppsButtonComponent {
   @Input() icon = 'help';
   @Input() label = 'unknown';
   @Input() isActive = false;
-
+  @Input() borderRadius = '0%';
+  @Input() padding = '5px';
 }

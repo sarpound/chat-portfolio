@@ -13,6 +13,7 @@ import { AppsButtonComponent } from './components/apps-button/apps-button.compon
 import { AppRoutingModule } from './app-routing.module';
 import { ChatComponent } from './pages/chat/chat.component';
 import { PortfolioComponent } from './pages/portfolio/portfolio.component';
+import { MessageChatComponent } from './components/message-chat/message-chat.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { PortfolioComponent } from './pages/portfolio/portfolio.component';
     MessageBoxComponent,
     AppsButtonComponent,
     ChatComponent,
-    PortfolioComponent
+    PortfolioComponent,
+    MessageChatComponent
   ],
   imports: [
     AppRoutingModule,
