@@ -1,38 +1,17 @@
 <div class="message-chat">
   <div class="message-panel">
-    <p style="margin: 0; text-align: center; font-size: small; color: gray; margin-bottom: 10px;">
+    <p
+      style="
+        margin: 0;
+        text-align: center;
+        font-size: small;
+        color: gray;
+        margin-bottom: 10px;
+      "
+    >
       {{ today }}
     </p>
     <!-- messages go here -->
-    <div class="message-box">
-      <p class="sender">Hello</p>
-    </div>
-    <!-- <img src="../../../assets/images/profile_img.jpg" alt="profile_img"/> -->
-    <div class="message-box">
-      <div class="chat-grid-container">
-        <div class="chat-grid-item">
-          <div class="chat-image-item">
-            <img src="../../../assets/images/profile_img.jpg" alt="profile_img"/>
-          </div>
-        </div>
-        <div class="chat-grid-item">
-          <div class="chat-info-item">
-            <span class="chat-name">Soravit Varanich</span>
-          </div>
-        </div>
-        <div class="chat-grid-item">
-            <span class="chat-date">11:20</span>
-        </div>
-      </div>
-      <p class="receiver">Hello</p>
-    </div>
-    <div class="message-box">
-      <div className="loading">
-        <div class="loading-text">
-          <span class="dot">.</span><span class="dot">.</span><span class="dot">.</span>
-        </div>
-      </div>
-    </div>
   </div>
   <div class="message-panel-footer">
     <div class="new-message">
@@ -46,7 +25,8 @@
           role="textbox"
           aria-multiline="true"
           aria-placeholder="Type a new message"
-          (keyup.enter)="onSendButtonClick()"
+          (keydown.enter)="onNewMessageKeyDown()"
+          (keyup.enter)="onSendButtonClick(textMessage)"
         ></div>
       </div>
       <div class="new-message-button">

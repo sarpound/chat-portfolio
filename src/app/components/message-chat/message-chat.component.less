@@ -81,44 +81,57 @@
 
 .message-panel .message-box {
   width: 100%;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
   display: inline-block;
 }
 
 .message-box p.sender {
   position: relative;
   float: right;
-  max-width: 40%;
+  max-width: 50%;
   height: 100%;
   margin: 0;
-  padding: 5px 10px 5px 10px;
+  padding: 5px 13px 5px 13px;
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
   border-bottom-left-radius: 25px;
   background-color: #B785F5;
-  color: #fff;
+  color: #000;
   text-align: left;
   word-wrap: break-word;
+  transform: scale(0);
+  animation: pop-up 0.3s ease forwards;
 }
 
 .message-box p.receiver {
   position: relative;
   float: left;
+  max-width: 50%;
   height: 100%;
   margin: 0;
-  padding: 5px 10px 5px 10px;
+  padding: 5px 13px 5px 13px;
   border-top-right-radius: 25px;
   border-bottom-left-radius: 25px;
   border-bottom-right-radius: 25px;
   background-color: #B785F5;
-  color: #fff;
+  color: #000;
   text-align: left;
   word-wrap: break-word;
 }
 
+@keyframes pop-up {
+  from {
+    transform: scale(0.5);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+
 .loading {
   margin: 0;
-  color: #fff;
+  color: #000;
 }
 
 .loading-text {
@@ -179,6 +192,7 @@
   grid-template-columns: 25% 65% 10%;
   border-radius: 20px;
   height: 100%;
+  margin-top: 12px;
   margin-bottom: 10px;
 }
 
