@@ -1,8 +1,31 @@
+:host {
+  flex: 1 1 auto;
+}
+
 .message-box {
-  width: 18rem;
   height: 100%;
   padding-left: 1rem;
   padding-right: 1rem;
+}
+
+@media screen and (max-width: 540px) {
+  .message-box {
+    flex-grow: 1;
+    padding-left: 0.3rem;
+    padding-right: 0.3rem;
+  }
+}
+
+@media screen and (min-width: 540px) {
+  .message-box {
+    width: 14rem;
+  }
+}
+
+@media screen and (min-width: 680px) {
+  .message-box {
+    width: 18rem;
+  }
 }
 
 .chat-list {
@@ -11,6 +34,10 @@
   border-radius: 20px;
   background-color: #101014;
   cursor: pointer;
+}
+
+.chat-list:hover {
+  background-color: #1d1e24;
 }
 
 .chat-name {
@@ -57,4 +84,10 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.chat-message {
+  font-size: small;
+  color: gray;
+  min-height: 20px;
 }

@@ -5,6 +5,12 @@
   width: 100%;
 }
 
+@media screen and (max-width: 680px) {
+  :host {
+    padding: 10px;
+  }
+}
+
 .message-chat {
   flex: 1;
   display: grid;
@@ -184,6 +190,14 @@
   font-weight: bold;
   color: #76787E;
   padding-left: 10px;
+}
+
+.currentDate {
+  margin: 0;
+  text-align: center;
+  font-size: small;
+  color: gray;
+  margin-bottom: 5px;
 }
 
 .chat-grid-container {

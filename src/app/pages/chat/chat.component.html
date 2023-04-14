@@ -1,4 +1,4 @@
-<div class="chat-main-content">
-  <message-box />
-  <message-chat />
+<div class="main-content">
+  <message-box *ngIf="!isPortraitView || (isPortraitView && !isChatPanelSelect)" />
+  <message-chat *ngIf="!isPortraitView || (isPortraitView && isChatPanelSelect)" />
 </div>

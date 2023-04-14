@@ -1,3 +1,10 @@
 <div class="app-header">
-  <user-welcome />
+  <apps-button
+    *ngIf="isPortraitView && isChatPanelSelect && isChatRoute"
+    class="d-flex ml-10 cursor-pointer"
+    [icon]="'arrow_back_ios'"
+    (click)="onBackClick()"
+  />
+  <div *ngIf="!isPortraitView || (isPortraitView && !isChatPanelSelect) || !isChatRoute"></div>
+  <user-welcome class="d-flex" />
 </div>

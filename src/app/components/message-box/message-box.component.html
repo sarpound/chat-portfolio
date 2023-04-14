@@ -1,6 +1,6 @@
 <div class="message-box">
-  <div class="chat-list">
-    <div class="chat-grid-container">
+  <div class="chat-list" (click)="onChatSelect()">
+    <div class="chat-grid-container over-flow-hidden">
       <div class="chat-grid-item">
         <div class="chat-image-item">
           <img src="../../../assets/images/profile_img.jpg" alt="profile_img"/>
@@ -10,9 +10,9 @@
         <div class="chat-info-item">
           <div class="d-flex space-between">
             <span class="chat-name">Soravit Varanich</span>
-            <span class="chat-date">11:20</span>
+            <span class="chat-date">{{ currentMsgTime }}</span>
           </div>
-          <span>Message...</span>
+          <span class="chat-message">{{ currentMessage }}</span>
         </div>
       </div>
     </div>

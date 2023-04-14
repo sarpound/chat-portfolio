@@ -4,16 +4,18 @@ import {
   ViewChild,
   ElementRef,
   OnInit,
+  OnDestroy,
 } from '@angular/core';
 import { IMessage } from 'src/app/interfaces/message-chat';
-import { getCurrentDate, getCurrentTime } from 'src/app/shared/utils/date';
+import { ModelService } from 'src/app/services/model.service';
+import { getCurrentDate, getCurrentTime } from 'src/app/shared/utils/date.util';
 
 @Component({
   selector: 'message-chat',
   templateUrl: './message-chat.component.html',
   styleUrls: ['./message-chat.component.less'],
 })
-export class MessageChatComponent implements OnInit, AfterViewInit {
+export class MessageChatComponent implements AfterViewInit, OnDestroy, OnInit {
   @ViewChild('newMessage') newMessage!: ElementRef;
 
   today: string = 'N/A';
@@ -36,17 +38,30 @@ export class MessageChatComponent implements OnInit, AfterViewInit {
         "1. Can you tell me more about your experience working in the tech industry?<br>2. What programming languages and frameworks are you most skilled in?<br>3. Can you provide examples of projects you've worked on in the past?<br>4. How do you approach problem-solving and troubleshooting in your work?",
     }
   ];
-  private TEXT_DELAY = 1200;
+  private TEXT_DELAY: number = 1200;
+  private userInterract: boolean = false;
+  private greetingMsgDelay: any;
+
+  constructor(
+    private modelService: ModelService
+  ) {}
 
   ngOnInit(): void {
     this.today = getCurrentDate();
+
+    document.addEventListener('click', this.handleClick);
+  }
+
+  ngOnDestroy(): void {
+    document.removeEventListener('click', this.handleClick);
+    clearTimeout(this.greetingMsgDelay);
   }
 
   ngAfterViewInit(): void {
     this.today = getCurrentDate();
-    setTimeout(() => {
+    this.greetingMsgDelay = setTimeout(() => {
       this.displayMessages(this.greetingMessage, 0);
-    }, 500);
+    }, this.TEXT_DELAY / 2);
   }
 
   onNewMessageKeyDown(): void {
@@ -57,8 +72,6 @@ export class MessageChatComponent implements OnInit, AfterViewInit {
     const newMessage = textMessage || this.newMessage.nativeElement.innerHTML.trim();
     const sanitizedText = newMessage.replace(/<div>/g, '').replace(/<\/div>/g, '').replace(/&nbsp;/g, '');
     if (sanitizedText !== '') {
-      console.log(sanitizedText);
-
       this.messageHistory.push({
         userId: 'sender',
         message: sanitizedText,
@@ -71,7 +84,13 @@ export class MessageChatComponent implements OnInit, AfterViewInit {
         messageBox.classList.add('message-box');
         messageBox.setAttribute(ngContent, '');
         messageBox.innerHTML = `<p ${ngContent} class="sender">${sanitizedText}</p>`;
+
+        // Play sound effect
+        const soundSending = new Audio('../../../assets/audios/sender.mp3');
+        soundSending.play();
         messagePanel.append(messageBox);
+
+        this.modelService.updateModel({ currentMessage: { userId: 'sender', message: sanitizedText.length > 26 ? sanitizedText.slice(0, 25).replace(/<br>/g, '') + '...' : sanitizedText.replace(/<br>/g, ''), time: this.getCurrentTime } });
 
         // Scroll to the new message element
         const messageBoxes = document.querySelectorAll('.sender');
@@ -85,36 +104,45 @@ export class MessageChatComponent implements OnInit, AfterViewInit {
 
   private appendReceiverMessage(message: IMessage): void {
     const messagePanel = document.querySelector('.message-panel');
-    if (messagePanel) {
-      const ngContent = messagePanel.attributes[0] ? messagePanel.attributes[0].name : '';
-      const messageBox = document.createElement('div');
+    if (!messagePanel) {
+      return;
+    }
 
-      messageBox.classList.add('message-box');
-      messageBox.setAttribute(ngContent, '');
+    const ngContent = messagePanel.attributes[0]?.name || '';
+    const messageBox = document.createElement('div');
+    messageBox.classList.add('message-box');
+    messageBox.setAttribute(ngContent, '');
 
-      if (this.messageHistory[this.messageHistory.length - 1]?.userId === 'sender' || this.messageHistory.length === 0) {
-        const receiverInfoElement = this.createReceiverInfoElement(ngContent);
-        messageBox.appendChild(receiverInfoElement);
-        messagePanel.append(messageBox);
+    const isSenderMessage = this.messageHistory[this.messageHistory.length - 1]?.userId === 'sender' || this.messageHistory.length === 0;
+    if (isSenderMessage) {
+      const receiverInfoElement = this.createReceiverInfoElement(ngContent);
+      messageBox.appendChild(receiverInfoElement);
+    }
+
+    this.messageHistory.push(message);
+    const loadingElement = this.createLoadingElement(ngContent);
+    messageBox.appendChild(loadingElement);
+    messagePanel.append(messageBox);
+
+    this.greetingMsgDelay = setTimeout(() => {
+      messageBox.removeChild(loadingElement);
+
+      const receiverText = document.createElement('p');
+      receiverText.classList.add('receiver');
+      receiverText.setAttribute(ngContent, '');
+      receiverText.innerHTML = message.message;
+
+      // Play sound effect
+      // Cannot find the way to play a music even user not interract with DOM
+      if (this.userInterract) {
+          const soundReceiving = new Audio('../../../assets/audios/receiver.mp3');
+          soundReceiving.play();
       }
 
-      this.messageHistory.push(message);
-
-      const loadingElement = this.createLoadingElement(ngContent);
-      messageBox.appendChild(loadingElement);
-      messagePanel.append(messageBox);
-
-      setTimeout(() => {
-        messageBox.removeChild(loadingElement);
-
-        const receiverText = document.createElement('p');
-        receiverText.classList.add('receiver');
-        receiverText.setAttribute(ngContent, '');
-        receiverText.innerHTML = message.message;
-
-        messageBox.appendChild(receiverText);
-      }, this.TEXT_DELAY / 2);
-    }
+      messageBox.appendChild(receiverText);
+      const displayedMessage = message.message.length > 31 ? message.message.slice(0, 30) + '...' : message.message;
+      this.modelService.updateModel({ currentMessage: { userId: 'receiver', message: displayedMessage, time: this.getCurrentTime } });
+    }, this.TEXT_DELAY / 2);
   }
 
   private createLoadingElement(ngContent: string): HTMLDivElement {
@@ -176,7 +204,7 @@ export class MessageChatComponent implements OnInit, AfterViewInit {
     const spanDate = document.createElement('span');
     spanDate.setAttribute(ngContent, '');
     spanDate.className = 'chat-date';
-    spanDate.textContent = getCurrentTime();
+    spanDate.textContent = this.getCurrentTime;
 
     // Add the nested span element to the third child element
     chatGridItem3.appendChild(spanDate);
@@ -193,9 +221,17 @@ export class MessageChatComponent implements OnInit, AfterViewInit {
     if (index < messages.length) {
       const message = messages[index];
       this.appendReceiverMessage(message);
-      setTimeout(() => {
+      this.greetingMsgDelay = setTimeout(() => {
         this.displayMessages(messages, index + 1);
       }, this.TEXT_DELAY);
     }
   }
+
+  private get getCurrentTime(): string {
+    return getCurrentTime();
+  }
+
+  private handleClick = (): void => {
+    this.userInterract = true;
+  };
 }

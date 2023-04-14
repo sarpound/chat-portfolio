@@ -12,8 +12,9 @@ import { AppsButtonComponent } from './components/apps-button/apps-button.compon
 
 import { AppRoutingModule } from './app-routing.module';
 import { ChatComponent } from './pages/chat/chat.component';
-import { PortfolioComponent } from './pages/portfolio/portfolio.component';
 import { MessageChatComponent } from './components/message-chat/message-chat.component';
+import { WorkComponent } from './pages/work/work.component';
+import { ProjectComponent } from './pages/project/project.component';
 
 @NgModule({
   declarations: [
@@ -25,8 +26,9 @@ import { MessageChatComponent } from './components/message-chat/message-chat.com
     MessageBoxComponent,
     AppsButtonComponent,
     ChatComponent,
-    PortfolioComponent,
-    MessageChatComponent
+    MessageChatComponent,
+    WorkComponent,
+    ProjectComponent
   ],
   imports: [
     AppRoutingModule,

@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
+import { IMessage } from 'src/app/interfaces/message-chat';
+import { ModelService } from 'src/app/services/model.service';
 
 @Component({
   selector: 'message-box',
@@ -7,4 +10,27 @@ import { Component } from '@angular/core';
 })
 export class MessageBoxComponent {
 
+  currentMessage: string = '';
+  currentMsgTime: string = '';
+  isChatPanelSelect: boolean = false;
+
+  private currentMessage$: Observable<IMessage>;
+
+  constructor(
+    private modelService: ModelService
+  ) {
+    this.currentMessage$ = this.modelService.getCurrentMessage();
+  }
+
+  ngOnInit(): void {
+    this.currentMessage$.subscribe((model: IMessage) => {
+      this.currentMessage = model.message;
+      this.currentMsgTime = model.time || '';
+    });
+  }
+
+  onChatSelect(): void {
+    this.isChatPanelSelect = !this.isChatPanelSelect;
+    this.modelService.updateModel({ isChatPanelSelect: this.isChatPanelSelect })
+  }
 }
