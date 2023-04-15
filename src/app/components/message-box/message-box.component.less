@@ -8,26 +8,6 @@
   padding-right: 1rem;
 }
 
-@media screen and (max-width: 540px) {
-  .message-box {
-    flex-grow: 1;
-    padding-left: 0.3rem;
-    padding-right: 0.3rem;
-  }
-}
-
-@media screen and (min-width: 540px) {
-  .message-box {
-    width: 14rem;
-  }
-}
-
-@media screen and (min-width: 680px) {
-  .message-box {
-    width: 18rem;
-  }
-}
-
 .chat-list {
   width: 100%;
   height: 80px;
@@ -90,4 +70,45 @@
   font-size: small;
   color: gray;
   min-height: 20px;
+}
+
+@media screen and (max-width: 540px) {
+  .message-box {
+    flex-grow: 1;
+    padding-left: 0.3rem;
+    padding-right: 0.3rem;
+  }
+
+  .chat-list {
+    height: 70px;
+  }
+
+  .chat-image-item {
+    width: 30px;
+    height: 30px;
+  }
+
+  .chat-name {
+    font-size: small;
+  }
+
+  .chat-date {
+    font-size: smaller;
+  }
+
+  .chat-message {
+    font-size: smaller;
+  }
+}
+
+@media screen and (min-width: 540px) {
+  .message-box {
+    width: 14rem;
+  }
+}
+
+@media screen and (min-width: 680px) {
+  .message-box {
+    width: 18rem;
+  }
 }
