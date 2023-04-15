@@ -8,6 +8,17 @@
 .apps-button.select {
   background-color: #F3FC8A;
   color: black;
+  transform: scale(0);
+  animation: pop-up 0.3s ease forwards;
+}
+
+@keyframes pop-up {
+  from {
+    transform: scale(0.8);
+  }
+  to {
+    transform: scale(1);
+  }
 }
 
 .apps-button-label {

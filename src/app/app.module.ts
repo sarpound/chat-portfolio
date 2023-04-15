@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { AppHeaderComponent } from './components/app-header/app-header.component';
@@ -33,6 +34,7 @@ import { ProjectComponent } from './pages/project/project.component';
   imports: [
     AppRoutingModule,
     BrowserModule,
+    HttpClientModule,
     MaterialModule
   ],
   providers: [],

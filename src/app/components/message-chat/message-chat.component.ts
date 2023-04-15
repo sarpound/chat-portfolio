@@ -25,7 +25,7 @@ export class MessageChatComponent implements AfterViewInit, OnDestroy, OnInit {
   private greetingMessage: IMessage[] = [
     {
       userId: 'receiver',
-      message: 'Hello, my name is Soravit Varanich',
+      message: 'Hello, my name is Soravit Varanich 😉',
     },
     {
       userId: 'receiver',
@@ -90,7 +90,7 @@ export class MessageChatComponent implements AfterViewInit, OnDestroy, OnInit {
         soundSending.play();
         messagePanel.append(messageBox);
 
-        this.modelService.updateModel({ currentMessage: { userId: 'sender', message: sanitizedText.length > 26 ? sanitizedText.slice(0, 25).replace(/<br>/g, '') + '...' : sanitizedText.replace(/<br>/g, ''), time: this.getCurrentTime } });
+        this.modelService.updateModel({ currentMessage: { userId: 'sender', message: sanitizedText, time: this.getCurrentTime } });
 
         // Scroll to the new message element
         const messageBoxes = document.querySelectorAll('.sender');
@@ -140,8 +140,8 @@ export class MessageChatComponent implements AfterViewInit, OnDestroy, OnInit {
       }
 
       messageBox.appendChild(receiverText);
-      const displayedMessage = message.message.length > 31 ? message.message.slice(0, 30) + '...' : message.message;
-      this.modelService.updateModel({ currentMessage: { userId: 'receiver', message: displayedMessage, time: this.getCurrentTime } });
+
+      this.modelService.updateModel({ currentMessage: { userId: 'receiver', message: message.message, time: this.getCurrentTime } });
     }, this.TEXT_DELAY / 2);
   }
 

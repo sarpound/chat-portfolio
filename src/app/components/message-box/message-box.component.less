@@ -72,20 +72,23 @@
   min-height: 20px;
 }
 
-@media screen and (max-width: 540px) {
+@media screen and (max-width: 320px) {
+  .chat-image-item {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+@media screen and (max-width: 640px) {
   .message-box {
     flex-grow: 1;
     padding-left: 0.3rem;
     padding-right: 0.3rem;
+    padding-top: 10px;
   }
 
   .chat-list {
     height: 70px;
-  }
-
-  .chat-image-item {
-    width: 30px;
-    height: 30px;
   }
 
   .chat-name {
@@ -101,7 +104,7 @@
   }
 }
 
-@media screen and (min-width: 540px) {
+@media screen and (min-width: 640px) {
   .message-box {
     width: 14rem;
   }

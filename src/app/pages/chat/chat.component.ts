@@ -33,7 +33,7 @@ export class ChatComponent implements OnInit {
   }
 
   private isShowChatPanel(): void {
-    this.isPortraitView = window.innerWidth <= 540;
+    this.isPortraitView = window.innerWidth <= 640;
 
     this.modelServices.updateModel({ isPortraitView: this.isPortraitView });
   }

@@ -1,4 +1,7 @@
-<div [ngStyle]="{ 'border-radius': borderRadius, 'padding': padding }" [class]="isActive ? 'apps-button select' : 'apps-button'">
+<div
+  [ngStyle]="{ 'border-radius': borderRadius, 'padding': padding, 'width': width ? width : null, 'height': height ? height : null }"
+  [class]="isActive ? 'apps-button select' : 'apps-button'"
+>
   <mat-icon>{{ icon }}</mat-icon>
   <span *ngIf="label !== 'unknown'" class="apps-button-label">{{ label }}</span>
 </div>

@@ -3,9 +3,10 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
+    "start": "npm run clean && ng serve",
+    "build": "npm run clean && ng build",
+    "watch": "npm run clean && ng build --watch --configuration development",
+    "clean": "rm -rf dist/chat-portfolio",
     "test": "ng test"
   },
   "private": true,

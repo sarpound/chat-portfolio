@@ -7,6 +7,8 @@ import { Component, Input } from '@angular/core';
 })
 export class AppsButtonComponent {
 
+  @Input() width = '';
+  @Input() height = '';
   @Input() icon = 'help';
   @Input() label = 'unknown';
   @Input() isActive = false;

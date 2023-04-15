@@ -1,0 +1,10 @@
+{
+  "hosting": {
+    "public": "dist/chat-portfolio",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}

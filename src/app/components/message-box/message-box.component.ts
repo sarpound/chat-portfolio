@@ -9,7 +9,6 @@ import { ModelService } from 'src/app/services/model.service';
   styleUrls: ['./message-box.component.less']
 })
 export class MessageBoxComponent {
-
   currentMessage: string = '';
   currentMsgTime: string = '';
   isChatPanelSelect: boolean = false;
@@ -24,7 +23,7 @@ export class MessageBoxComponent {
 
   ngOnInit(): void {
     this.currentMessage$.subscribe((model: IMessage) => {
-      this.currentMessage = model.message;
+      this.currentMessage = model.message.length > 50 ? model.message.slice(0, 49) + '...' : model.message;
       this.currentMsgTime = model.time || '';
     });
   }
