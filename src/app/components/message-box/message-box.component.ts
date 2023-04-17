@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IMessage } from 'src/app/interfaces/message-chat';
 import { ModelService } from 'src/app/services/model.service';
@@ -8,28 +8,30 @@ import { ModelService } from 'src/app/services/model.service';
   templateUrl: './message-box.component.html',
   styleUrls: ['./message-box.component.less']
 })
-export class MessageBoxComponent {
-  currentMessage: string = '';
-  currentMsgTime: string = '';
-  isChatPanelSelect: boolean = false;
+export class MessageBoxComponent implements OnInit {
+  currentMessage = '';
+  currentMsgTime = '';
+  isChatPanelSelect = false;
 
-  private currentMessage$: Observable<IMessage>;
+  private currentMessage$!: Observable<IMessage>;
 
-  constructor(
-    private modelService: ModelService
-  ) {
-    this.currentMessage$ = this.modelService.getCurrentMessage();
-  }
+  constructor(private modelService: ModelService) {}
 
   ngOnInit(): void {
-    this.currentMessage$.subscribe((model: IMessage) => {
-      this.currentMessage = model.message.length > 50 ? model.message.slice(0, 49) + '...' : model.message;
-      this.currentMsgTime = model.time || '';
+    this.currentMessage$ = this.modelService.getCurrentMessage();
+    this.currentMessage$.subscribe(({ message, time }) => {
+      this.currentMessage = this.truncateMessage(message);
+      this.currentMsgTime = time || '';
     });
   }
 
-  onChatSelect(): void {
+  toggleChatPanel(): void {
     this.isChatPanelSelect = !this.isChatPanelSelect;
-    this.modelService.updateModel({ isChatPanelSelect: this.isChatPanelSelect })
+    this.modelService.updateModel({ isChatPanelSelect: this.isChatPanelSelect });
+  }
+
+  private truncateMessage(message: string): string {
+    const maxLength = window.innerWidth > 1200 ? 36 : 30;
+    return message.length > maxLength ? message.slice(0, maxLength - 1) + '...' : message;
   }
 }

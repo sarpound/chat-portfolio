@@ -16,6 +16,7 @@ import { ChatComponent } from './pages/chat/chat.component';
 import { MessageChatComponent } from './components/message-chat/message-chat.component';
 import { WorkComponent } from './pages/work/work.component';
 import { ProjectComponent } from './pages/project/project.component';
+import { AppPortraitBarComponent } from './components/app-portrait-bar/app-portrait-bar.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { ProjectComponent } from './pages/project/project.component';
     ChatComponent,
     MessageChatComponent,
     WorkComponent,
-    ProjectComponent
+    ProjectComponent,
+    AppPortraitBarComponent
   ],
   imports: [
     AppRoutingModule,

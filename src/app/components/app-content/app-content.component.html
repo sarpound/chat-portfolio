@@ -1,4 +1,5 @@
-<div class="app-content">
-  <app-bar />
+<div [class]="isPortraitView ? 'app-content flex-direction-column' : 'app-content'">
+  <app-bar *ngIf="!isPortraitView" />
   <router-outlet></router-outlet>
+  <app-portrait-bar *ngIf="isPortraitView" />
 </div>

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
+import { ModelService } from './services/model.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,22 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
 
+  constructor(
+    private modelServices: ModelService
+  ) {}
+
+  @HostListener('window:resize')
+  onWindowResize() {
+    this.isShowChatPanel();
+  }
+
+  ngOnInit(): void {
+    this.isShowChatPanel();
+  }
+
+  private isShowChatPanel(): void {
+    const isPortraitView = window.innerWidth <= 640;
+
+    this.modelServices.updateModel({ isPortraitView: isPortraitView });
+  }
 }
