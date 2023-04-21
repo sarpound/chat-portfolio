@@ -6,9 +6,13 @@ import {
   OnInit,
   OnDestroy,
 } from '@angular/core';
-import { IMessage } from 'src/app/interfaces/message-chat';
+import { FALLBACK_MESSAGE, GREETING_MESSAGE } from 'src/app/constants/defaultMessage';
+import { INDENT } from 'src/app/constants/indent';
+import { IMessage, Indent } from 'src/app/interfaces/message-chat';
 import { ModelService } from 'src/app/services/model.service';
 import { getCurrentDate, getCurrentTime } from 'src/app/shared/utils/date.util';
+
+import { findBestMatch } from 'string-similarity';
 
 @Component({
   selector: 'message-chat',
@@ -22,22 +26,7 @@ export class MessageChatComponent implements AfterViewInit, OnDestroy, OnInit {
   textMessage: string = '';
 
   private messageHistory: IMessage[] = [];
-  private greetingMessage: IMessage[] = [
-    {
-      userId: 'receiver',
-      message: 'Hello, my name is Soravit Varanich 😉',
-    },
-    {
-      userId: 'receiver',
-      message:
-        "Welcome to my portfolio chatbot! I'm here to help you learn more about my skills, experience, and hobbies, and I'd be happy to answer any questions you have. To get started, here are some recommended questions that you can choose from:",
-    },
-    {
-      userId: 'receiver',
-      message:
-        "1. Can you tell me more about your experience working in the tech industry?<br>2. What programming languages and frameworks are you most skilled in?<br>3. Can you provide examples of projects you've worked on in the past?<br>4. How do you approach problem-solving and troubleshooting in your work?",
-    }
-  ];
+  private greetingMessage: IMessage[] = GREETING_MESSAGE;
   private TEXT_DELAY: number = 1200;
   private userInterract: boolean = false;
   private greetingMsgDelay: any;
@@ -69,7 +58,10 @@ export class MessageChatComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
   onSendButtonClick(textMessage?: string): void {
+    if (!this.newMessage.nativeElement.textContent) return;
+
     const newMessage = textMessage || this.newMessage.nativeElement.innerHTML.trim();
+    console.log(textMessage);
     const sanitizedText = newMessage.replace(/<div>/g, '').replace(/<\/div>/g, '').replace(/&nbsp;/g, '');
     if (sanitizedText !== '') {
       this.messageHistory.push({
@@ -92,12 +84,16 @@ export class MessageChatComponent implements AfterViewInit, OnDestroy, OnInit {
 
         this.modelService.updateModel({ currentMessage: { userId: 'sender', message: sanitizedText, time: this.getCurrentTime } });
 
-        // Scroll to the new message element
-        const messageBoxes = document.querySelectorAll('.sender');
-        const lastMessage = messageBoxes[messageBoxes.length - 1];
-        lastMessage.scrollIntoView({ behavior: 'smooth' });
+        setTimeout(() => {
+          // Scroll to the new message element
+          const messageBoxes = document.querySelectorAll('.sender');
+          const lastMessage = messageBoxes[messageBoxes.length - 1];
+          lastMessage.scrollIntoView({ behavior: 'smooth' });
+        }, 0);
 
         this.newMessage.nativeElement.focus();
+
+        this.generateResponse(sanitizedText);
       }
     }
   }
@@ -142,6 +138,14 @@ export class MessageChatComponent implements AfterViewInit, OnDestroy, OnInit {
       messageBox.appendChild(receiverText);
 
       this.modelService.updateModel({ currentMessage: { userId: 'receiver', message: message.message, time: this.getCurrentTime } });
+
+      setTimeout(() => {
+        // Scroll to the new message element
+        const messageBoxes = document.querySelectorAll('.receiver');
+        const lastMessage = messageBoxes[messageBoxes.length - 1];
+        lastMessage.scrollIntoView({ behavior: 'smooth' });
+      }, 0);
+
     }, this.TEXT_DELAY / 2);
   }
 
@@ -225,6 +229,35 @@ export class MessageChatComponent implements AfterViewInit, OnDestroy, OnInit {
         this.displayMessages(messages, index + 1);
       }, this.TEXT_DELAY);
     }
+  }
+
+  private generateResponse(text: string): void {
+    const indent: Indent = INDENT;
+
+    // Check if user's message matches a known intent
+    for (const key in indent) {
+      const indentByKey = indent[key].indent;
+      const matches = findBestMatch(text.toLowerCase(), indentByKey.map((item: string) => item.toLowerCase()));
+      if (matches.bestMatch.rating > 0.5) { // set a threshold for similarity
+        const response = indent[key].response[Math.floor(Math.random() * indent[key].response.length)];
+        const message: IMessage = {
+          userId: 'receiver',
+          message: response,
+          time: this.getCurrentTime,
+        };
+        this.appendReceiverMessage(message);
+        return;
+      }
+    }
+
+    // If no known indent was detected, use a fallback response
+    const fallBackResponse = FALLBACK_MESSAGE[Math.floor(Math.random() * FALLBACK_MESSAGE.length)];
+    const message: IMessage = {
+      userId: 'receiver',
+      message: fallBackResponse,
+      time: this.getCurrentTime,
+    };
+    this.appendReceiverMessage(message);
   }
 
   private get getCurrentTime(): string {
