@@ -172,7 +172,7 @@ export class MessageChatComponent implements AfterViewInit, OnDestroy, OnInit {
     const chatImageItem = document.createElement('div');
     chatImageItem.className = 'chat-image-item';
     const img = document.createElement('img');
-    img.src = '../../../assets/images/profile_img.jpg';
+    img.src = '../../../assets/images/me.jpg';
     img.alt = 'profile_img';
     img.setAttribute(ngContent, '');
     chatImageItem.appendChild(img);
