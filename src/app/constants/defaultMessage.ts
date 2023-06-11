@@ -11,7 +11,7 @@ export const GREETING_MESSAGE = [
   {
     userId: 'receiver',
     message:
-      "1. Can you tell me more about your experience working in the tech industry?<br>2. What programming languages and frameworks are you most skilled in?<br>3. Can you provide examples of projects you've worked on in the past?<br>4. How do you approach problem-solving and troubleshooting in your work?",
+      "1. Can you tell me more about your experience working in the tech industry?<br>2. What did you study?<br>3. What programming languages and frameworks are you most skilled in?<br>4. Can you provide examples of projects you've worked on in the past?<br>5. How do you approach problem-solving and troubleshooting in your work?",
   },
 ];
 

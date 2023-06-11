@@ -25,15 +25,21 @@ export class MessageChatComponent implements AfterViewInit, OnDestroy, OnInit {
   today: string = 'N/A';
   textMessage: string = '';
 
+  private BEST_MATCHED_RATIO: number = 0.5;
   private messageHistory: IMessage[] = [];
   private greetingMessage: IMessage[] = GREETING_MESSAGE;
   private TEXT_DELAY: number = 1200;
   private userInterract: boolean = false;
   private greetingMsgDelay: any;
+  private soundSender: HTMLAudioElement;
+  private soundReceiver: HTMLAudioElement;
 
   constructor(
     private modelService: ModelService
-  ) {}
+  ) {
+    this.soundSender = new Audio('../../../assets/audios/sender.mp3');
+    this.soundReceiver = new Audio('../../../assets/audios/receiver.mp3');
+  }
 
   ngOnInit(): void {
     this.today = getCurrentDate();
@@ -78,8 +84,7 @@ export class MessageChatComponent implements AfterViewInit, OnDestroy, OnInit {
         messageBox.innerHTML = `<p ${ngContent} class="sender">${sanitizedText}</p>`;
 
         // Play sound effect
-        const soundSending = new Audio('../../../assets/audios/sender.mp3');
-        soundSending.play();
+        this.soundSender.play();
         messagePanel.append(messageBox);
 
         this.modelService.updateModel({ currentMessage: { userId: 'sender', message: sanitizedText, time: this.getCurrentTime } });
@@ -131,8 +136,7 @@ export class MessageChatComponent implements AfterViewInit, OnDestroy, OnInit {
       // Play sound effect
       // Cannot find the way to play a music even user not interract with DOM
       if (this.userInterract) {
-          const soundReceiving = new Audio('../../../assets/audios/receiver.mp3');
-          soundReceiving.play();
+        this.soundReceiver.play();
       }
 
       messageBox.appendChild(receiverText);
@@ -234,20 +238,42 @@ export class MessageChatComponent implements AfterViewInit, OnDestroy, OnInit {
   private generateResponse(text: string): void {
     const indent: Indent = INDENT;
 
-    // Check if user's message matches a known intent
+    const userInput = text.toLowerCase().split(" ");
+    let maxMatchedKeywords = 0; // Initialize the maximum number of matched keywords
+    let bestMatchCategory = null; // Initialize the best match category
+
     for (const key in indent) {
       const indentByKey = indent[key].indent;
-      const matches = findBestMatch(text.toLowerCase(), indentByKey.map((item: string) => item.toLowerCase()));
-      if (matches.bestMatch.rating > 0.5) { // set a threshold for similarity
-        const response = indent[key].response[Math.floor(Math.random() * indent[key].response.length)];
-        const message: IMessage = {
-          userId: 'receiver',
-          message: response,
-          time: this.getCurrentTime,
-        };
-        this.appendReceiverMessage(message);
-        return;
+      let matchedKeywordsCount = 0; // Initialize the count of matched keywords for the current category
+
+      for (const item of indentByKey) {
+        const keywords = item.toLowerCase().split(" ");
+        const matches = userInput.map((word) => findBestMatch(word, keywords));
+        const matchedKeywords = matches.filter((match) => match.bestMatch.rating > this.BEST_MATCHED_RATIO);
+
+        if (matchedKeywords.length > matchedKeywordsCount) {
+          matchedKeywordsCount = matchedKeywords.length;
+        }
       }
+
+      // Update the best match if the current category has more matched keywords
+      if (matchedKeywordsCount > maxMatchedKeywords) {
+        maxMatchedKeywords = matchedKeywordsCount;
+        bestMatchCategory = key;
+      }
+    }
+
+    // Respond using the category with the most matched keywords
+    if (bestMatchCategory !== null) {
+      const response = indent[bestMatchCategory].response[Math.floor(Math.random() * indent[bestMatchCategory].response.length)];
+      const message: IMessage = {
+        userId: 'receiver',
+        message: response,
+        time: getCurrentTime(),
+      };
+
+      this.appendReceiverMessage(message);
+      return;
     }
 
     // If no known indent was detected, use a fallback response
