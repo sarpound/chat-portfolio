@@ -14,3 +14,16 @@ export function getCurrentTime(): string {
   const minutes = now.getMinutes().toString().padStart(2, '0');
   return `${hours}:${minutes}`;
 }
+
+export function getGreeting(): string {
+  const now = new Date();
+  const hours = now.getHours();
+
+  if (hours < 12) {
+    return "Good Morning";
+  } else if (hours < 18) {
+    return "Good Afternoon";
+  } else {
+    return "Good Evening";
+  }
+}
