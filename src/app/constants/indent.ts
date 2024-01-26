@@ -47,7 +47,9 @@ export const INDENT: Indent = {
       "Tell me about your work experience.",
       "What companies have you worked for?",
       "What were your job responsibilities?",
-      "What skills have you gained from your work experience?"
+      "What skills have you gained from your work experience?",
+      "Could you tell me about yourself?",
+      "introduce yourself"
     ],
     response: [
       `I have worked as a Software Engineer at LSEG (London Stock Exchange Group) for 1 year and 9 months. My main responsibilities involved maintaining and developing a financial platform for clients, with a focus on implementing real-time currency calculations and creating custom elements using DOM. I also investigated and resolved issues, distinguishing between backend and frontend causes. Additionally, I developed app-proxy applications to allow developers to work on their projects within a real domain, addressing CORS issues.
