@@ -1,40 +1,39 @@
 <div class="main-content justify-center align-items-center">
-  <div class="dev-progress-warning">
+  <div style="font-size: 0.8rem; font-weight: bold;" class="dev-progress-warning">
     ⚠️👷🏗️ DEVELOPMENT IN PROGRESS...
   </div>
+  <!-- style="opacity: 0.3;" -->
   <div class="container" style="opacity: 0.3;">
     <div class="carousel mt-20">
       <div class="main-image-display">
-        <div class="container-image">
-          <img src="../../../assets/images/lseg_work_cover.png" alt="cover-image" />
-
+        <div class="main-container-image">
+          <img [src]="selectedWork.coverUrl" [alt]="selectedWork.shortName + '-cover'">
           <div class="cover-details">
             <div class="cover-details-logo">
-              <img src="../../../assets/images/lseg_logo.png" alt="cover-details-logo" />
+              <img [src]="selectedWork.logoUrl" [alt]="selectedWork.shortName + '-logo'">
             </div>
             <div class="cover-details-intro">
-              LSEG: Global Leaders in Financial Infrastructure, Fostering Innovation and Economic Growth.
+              {{ selectedWork.description }}
             </div>
             <div class="cover-details-descript">
-              <div>
-                Position: Software Engineer
-              </div>
-              <div>
-                Start: 1 Oct 2021 - 30 April 2023
-              </div>
+              <div>Position: {{ selectedWork.position }}</div>
+              <div>Start: {{ selectedWork.date }}</div>
             </div>
           </div>
         </div>
       </div>
       <div class="main-image-lists">
-        <div class="main-image-items">
+        <div class="main-image-items" *ngFor="let item of workHistory"
+             (click)="selectWork(item)"
+             [class.main-image-items-selected]="selectedWork === item"
+             [style.cursor]="'pointer'">
           <div class="main-items-logo">
             <div class="container-image">
-              <img src="../../../assets/images/lseg_icon.jpg" alt="cover-details-logo" style="border-radius: 10px;" />
+              <img [src]="item.iconUrl" [alt]="item.shortName + '-Icon'" style="border-radius: 10px;">
             </div>
           </div>
           <div class="main-items-name">
-            London Stock Group Exchange
+            {{ item.name }}
           </div>
         </div>
       </div>
