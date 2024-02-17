@@ -8,6 +8,7 @@ import { AppHeaderComponent } from './components/app-header/app-header.component
 import { AppContentComponent } from './components/app-content/app-content.component';
 import { AppBarComponent } from './components/app-bar/app-bar.component';
 import { AppsButtonComponent } from './components/apps-button/apps-button.component';
+import { CarouselComponent } from './components/carousel/carousel.component';
 import { MessageBoxComponent } from './components/message-box/message-box.component';
 import { MaterialModule } from './shared/modules/material/material.module';
 import { UserWelcomeComponent } from './components/user-welcome/user-welcome.component';
@@ -26,13 +27,14 @@ import { AppPortraitBarComponent } from './components/app-portrait-bar/app-portr
     UserWelcomeComponent,
     AppContentComponent,
     AppBarComponent,
+    AppPortraitBarComponent,
+    CarouselComponent,
     MessageBoxComponent,
     AppsButtonComponent,
     ChatComponent,
     MessageChatComponent,
     WorkComponent,
     ProjectComponent,
-    AppPortraitBarComponent
   ],
   imports: [
     AppRoutingModule,
