@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 interface Iwork {
   name: string;
@@ -14,7 +15,19 @@ interface Iwork {
 @Component({
   selector: 'app-work',
   templateUrl: './work.component.html',
-  styleUrls: ['./work.component.less']
+  styleUrls: ['./work.component.less'],
+  animations: [
+    trigger('fade', [
+      // Define states for 'show' and 'hide'
+      state('in', style({ opacity: 1 })),
+      // Transition from any state to any state
+      transition('* => *', [
+        // Fade-out effect
+        style({ opacity: 0 }),
+        animate('0.5s ease-in')
+      ]),
+    ])
+  ]
 })
 
 export class WorkComponent implements OnInit {
@@ -26,8 +39,8 @@ export class WorkComponent implements OnInit {
       description: 'Adecco Thailand: Pioneering Recruitment and Employment Services for Dynamic Workforce Solutions.',
       position: 'Web Developer (Internship)',
       date: '1 June 2020 - 31 July 2020',
-      logoUrl: '/assets/images/Adecco_logo.png',
-      coverUrl: '/assets/images/Adecco_work_cover.png',
+      logoUrl: '/assets/images/adecco_logo.png',
+      coverUrl: '/assets/images/adecco_work_cover.png',
       iconUrl: '/assets/images/adecco_icon.png',
       selected: false,
     },
@@ -43,7 +56,18 @@ export class WorkComponent implements OnInit {
       selected: true
     }
   ];
-  selectedWork: any;
+
+  selectedWork: Iwork = {
+    name: 'N/A',
+    shortName: 'N/A',
+    description: 'N/A',
+    position: 'N/A',
+    date: 'N/A',
+    logoUrl: 'N/A',
+    coverUrl: 'N/A',
+    iconUrl: 'N/A',
+    selected: false,
+  };
 
   ngOnInit() {
     this.sortByDefault(this.workHistory);
