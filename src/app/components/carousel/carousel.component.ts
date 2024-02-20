@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChildren, QueryList, AfterViewInit, HostListener, CUSTOM_ELEMENTS_SCHEMA, Renderer2 } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
 import { trigger, state, style, transition, animate } from '@angular/animations';
 
 interface Iwork {
@@ -16,7 +18,7 @@ interface Iwork {
 @Component({
   selector: 'carousel',
   templateUrl: './carousel.component.html',
-  styleUrl: './carousel.component.css',
+  styleUrl: './carousel.component.less',
   animations: [
     trigger('fade', [
       state('in', style({ opacity: 1 })),
@@ -25,10 +27,12 @@ interface Iwork {
         animate('0.5s ease-in')
       ]),
     ])
-  ]
+  ],
+  standalone: true,
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
+  imports: [ CommonModule ]
 })
-export class CarouselComponent {
-
+export class CarouselComponent implements AfterViewInit {
   workHistory: Iwork[] = [
     {
       name: 'Adecco Thailand',
@@ -54,7 +58,21 @@ export class CarouselComponent {
     }
   ];
 
-  selectedWork: Iwork = {
+  @ViewChildren('mainContainerImages') mainContainerImages!: QueryList<ElementRef>;
+  @ViewChildren('coverDetails') coverDetails!: QueryList<ElementRef>;
+  @ViewChildren('coverIntros') coverIntros!: QueryList<ElementRef>;
+  @ViewChildren('descriptPosition') descriptPositions!: QueryList<ElementRef>;
+  @ViewChildren('descriptDate') descriptDates!: QueryList<ElementRef>;
+
+  private ZERO = 0;
+  private ONE = 1;
+  private MINUS_ONE = -1;
+  private SMALL_SCREEN = 640;
+  private DELAY_LOAD_DOM = 50;
+
+  public isScreenSmall: boolean = window.innerWidth <= this.SMALL_SCREEN;
+  public mainContainerImageWidth: number = this.ZERO;
+  public selectedWork: Iwork = {
     name: 'N/A',
     shortName: 'N/A',
     description: 'N/A',
@@ -66,6 +84,50 @@ export class CarouselComponent {
     selected: false,
   };
 
+
+  constructor(private renderer: Renderer2) {}
+
+  @HostListener('window:load', ['$event'])
+  onLoad(event: Event) {
+    this.updateTargetWidth();
+  }
+
+  ngAfterViewInit(): void {
+    this.updateTargetWidth();
+  }
+
+  updateTargetWidth() {
+    const delayUpdateDOM = setTimeout(() => {
+      this.isScreenSmall = window.innerWidth <= this.SMALL_SCREEN;
+      if (this.isScreenSmall) {
+
+        this.mainContainerImages.forEach((elementRef: ElementRef) => {
+          const mainContainerImageWidth = elementRef.nativeElement.offsetWidth;
+          const coverDetails = elementRef.nativeElement.querySelector('.cover-details');
+          const coverIntro = elementRef.nativeElement.querySelector('.cover-details-intro');
+          const descriptPosition = elementRef.nativeElement.querySelector('.descriptPosition');
+          const descriptDate = elementRef.nativeElement.querySelector('.descriptDate');
+
+          if (coverDetails) {
+            this.renderer.setStyle(coverDetails, 'width', `${mainContainerImageWidth}px`);
+            this.renderer.setStyle(coverDetails, 'padding', '0px');
+          }
+          if (coverIntro) {
+            this.renderer.setStyle(coverIntro, 'padding', '0 15px');
+          }
+          if (descriptPosition) {
+            this.renderer.setStyle(descriptPosition, 'padding', '0 15px');
+          }
+          if (descriptDate) {
+            this.renderer.setStyle(descriptDate, 'padding', '0 15px');
+          }
+        });
+      }
+
+      clearTimeout(delayUpdateDOM);
+    }, this.DELAY_LOAD_DOM);
+  }
+
   ngOnInit() {
     this.sortByDefault(this.workHistory);
     this.selectedWork = this.workHistory.find(work => work.selected) || this.workHistory[0];
@@ -75,13 +137,13 @@ export class CarouselComponent {
     items.sort((a, b) => {
       // Items with `default: true` come first
       if (a.selected === true && b.selected !== true) {
-        return -1;
+        return this.MINUS_ONE;
       }
       if (a.selected !== true && b.selected === true) {
-        return 1;
+        return this.ONE;
       }
       // If all items have the same `default` status, they remain in their original order (stable sort)
-      return 0;
+      return this.ZERO;
     });
   }
 

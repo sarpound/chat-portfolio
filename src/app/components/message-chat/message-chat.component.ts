@@ -93,7 +93,10 @@ export class MessageChatComponent implements AfterViewInit, OnDestroy, OnInit {
           // Scroll to the new message element
           const messageBoxes = document.querySelectorAll('.sender');
           const lastMessage = messageBoxes[messageBoxes.length - 1];
-          lastMessage.scrollIntoView({ behavior: 'smooth' });
+
+          if (lastMessage) {
+            lastMessage.scrollIntoView({ behavior: 'smooth' });
+          }
         }, 0);
 
         this.newMessage.nativeElement.focus();

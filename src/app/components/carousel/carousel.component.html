@@ -1,34 +1,64 @@
 <div class="carousel mt-20">
-  <div class="main-image-display">
-    <div [@fade]="selectedWork.coverUrl" class="main-container-image">
-      <img [src]="selectedWork.coverUrl" [alt]="selectedWork.shortName + '-cover'">
-      <div class="cover-details">
-        <div class="cover-details-logo">
-          <img [src]="selectedWork.logoUrl" [alt]="selectedWork.shortName + '-logo'">
+  <div *ngIf="isScreenSmall; else largeScreenContent">
+    <swiper-container
+      class="w-100 h-100"
+      slides-per-view="1"
+      speed="500"
+      loop="true"
+      css-mode="true"
+      pagination="true"
+    >
+      <swiper-slide *ngFor="let item of workHistory" class="main-image-display">
+        <div #mainContainerImages [@fade]="item.coverUrl" class="main-container-image">
+          <img [src]="item.coverUrl" [alt]="item.shortName + '-cover'">
+          <div #coverDetails class="cover-details">
+            <div class="cover-details-logo">
+              <img [src]="item.logoUrl" [alt]="item.shortName + '-logo'">
+            </div>
+            <div #coverIntros class="cover-details-intro font-header">
+              {{ item.description }}
+            </div>
+            <div class="cover-details-descript font-normal">
+              <div #descriptPosition class="descriptPosition">Position: {{ item.position }}</div>
+              <div #descriptDate class="descriptDate">Start: {{ item.date }}</div>
+            </div>
+          </div>
         </div>
-        <div class="cover-details-intro">
-          {{ selectedWork.description }}
+      </swiper-slide>
+    </swiper-container>
+  </div>
+  <ng-template #largeScreenContent>
+    <div class="carousel mt-20">
+      <div class="main-image-display">
+        <div [@fade]="selectedWork.coverUrl" class="main-container-image">
+          <img [src]="selectedWork.coverUrl" [alt]="selectedWork.shortName + '-cover'">
+          <div class="cover-details">
+            <div class="cover-details-logo">
+              <img [src]="selectedWork.logoUrl" [alt]="selectedWork.shortName + '-logo'">
+            </div>
+            <div class="cover-details-intro font-header">
+              {{ selectedWork.description }}
+            </div>
+            <div class="cover-details-descript font-normal">
+              <div>Position: {{ selectedWork.position }}</div>
+              <div>Start: {{ selectedWork.date }}</div>
+            </div>
+          </div>
         </div>
-        <div class="cover-details-descript">
-          <div>Position: {{ selectedWork.position }}</div>
-          <div>Start: {{ selectedWork.date }}</div>
+      </div>
+      <div class="main-image-lists">
+        <div class="main-image-items" *ngFor="let item of workHistory" (click)="selectWork(item)"
+          [class.main-image-items-selected]="selectedWork === item" [style.cursor]="'pointer'">
+          <div class="main-items-logo">
+            <div class="container-image">
+              <img [src]="item.iconUrl" [alt]="item.shortName + '-Icon'" style="border-radius: 10px;">
+            </div>
+          </div>
+          <div class="main-items-name">
+            {{ item.name }}
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="main-image-lists">
-    <div class="main-image-items" *ngFor="let item of workHistory"
-         (click)="selectWork(item)"
-         [class.main-image-items-selected]="selectedWork === item"
-         [style.cursor]="'pointer'">
-      <div class="main-items-logo">
-        <div class="container-image">
-          <img [src]="item.iconUrl" [alt]="item.shortName + '-Icon'" style="border-radius: 10px;">
-        </div>
-      </div>
-      <div class="main-items-name">
-        {{ item.name }}
-      </div>
-    </div>
-  </div>
+  </ng-template>
 </div>

@@ -36,6 +36,14 @@ body {
   object-fit: fill;
 }
 
+.w-100 {
+  width: 100%;
+}
+
+.h-100 {
+  height: 100%;
+}
+
 .mt-10 {
   margin-top: 10px;
 }
@@ -106,9 +114,20 @@ body {
   }
 }
 
-@media screen and (max-width: 640px) {
-  .main-content {
-    height: 100%;
-    padding-top: 0px;
+.font-header {
+  font-size: medium;
+}
+
+.font-normal {
+  font-size: small;
+}
+
+@media screen and (min-width: 1000px) {
+  .font-header {
+    font-size: large !important;
+  }
+
+  .font-normal {
+    font-size: medium !important;
   }
 }

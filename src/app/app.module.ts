@@ -28,7 +28,6 @@ import { AppPortraitBarComponent } from './components/app-portrait-bar/app-portr
     AppContentComponent,
     AppBarComponent,
     AppPortraitBarComponent,
-    CarouselComponent,
     MessageBoxComponent,
     AppsButtonComponent,
     ChatComponent,
@@ -41,7 +40,8 @@ import { AppPortraitBarComponent } from './components/app-portrait-bar/app-portr
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    MaterialModule
+    MaterialModule,
+    CarouselComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
