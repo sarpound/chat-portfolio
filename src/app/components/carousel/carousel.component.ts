@@ -11,6 +11,7 @@ interface Iwork {
   date: string;
   logoUrl: string;
   coverUrl: string;
+  coverMobilUrl?: string;
   iconUrl: string;
   selected: boolean;
 }
@@ -53,6 +54,7 @@ export class CarouselComponent implements AfterViewInit {
       date: '1 Oct 2021 - 30 April 2023',
       logoUrl: '/assets/images/lseg_logo.png',
       coverUrl: '/assets/images/lseg_work_cover.png',
+      coverMobilUrl: '/assets/images/lseg_work_cover_mobil.png',
       iconUrl: '/assets/images/lseg_icon.jpg',
       selected: true
     }
