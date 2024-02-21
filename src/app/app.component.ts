@@ -8,7 +8,7 @@ import { ModelService } from './services/model.service';
 })
 export class AppComponent {
 
-  private PROTRAIT_SCREEN = 640;
+  private PROTRAIT_SCREEN = 768;
 
   constructor(
     private modelServices: ModelService
