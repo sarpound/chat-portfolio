@@ -1,5 +1,5 @@
-import { ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
-import { Observable } from 'rxjs';
+import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 import { AppModel } from 'src/app/interfaces/app.interface';
 import { ModelService } from 'src/app/services/model.service';
 
@@ -8,15 +8,16 @@ import { ModelService } from 'src/app/services/model.service';
   templateUrl: './app-content.component.html',
   styleUrls: ['./app-content.component.less']
 })
-export class AppContentComponent {
+export class AppContentComponent implements OnInit, OnDestroy {
   @ViewChild('appContent') appContent!: ElementRef;
 
   isPortraitView!: boolean;
   private appModel$!: Observable<AppModel>;
+  private appModelSubscription!: Subscription;
 
   constructor(
-    private modelServices: ModelService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private modelServices: ModelService
   ) {
     this.appModel$ = this.modelServices.getModel();
   }
@@ -24,12 +25,14 @@ export class AppContentComponent {
   ngOnInit(): void {
     this.appModel$.subscribe((models: AppModel) => {
       this.isPortraitView = models.isPortraitView;
-      this.updateIsPortraitView();
+
+      this.cdr.detectChanges();
     });
   }
 
-  private updateIsPortraitView() {
-    // update your value here
-    this.cdr.detectChanges();
+  ngOnDestroy(): void {
+    if (this.appModelSubscription) {
+      this.appModelSubscription.unsubscribe();
+    }
   }
 }

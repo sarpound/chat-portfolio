@@ -1,5 +1,5 @@
 <div class="carousel mt-20">
-  <div *ngIf="isScreenSmall; else largeScreenContent">
+  <div *ngIf="this.isPortraitView; else largeScreenContent">
     <swiper-container
       class="w-100 h-100"
       slides-per-view="1"

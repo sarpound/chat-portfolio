@@ -1,7 +1,10 @@
-import { Component, ElementRef, ViewChildren, QueryList, AfterViewInit, HostListener, CUSTOM_ELEMENTS_SCHEMA, Renderer2 } from '@angular/core';
+import { Component, ElementRef, ViewChildren, QueryList, AfterViewInit, CUSTOM_ELEMENTS_SCHEMA, Renderer2, ChangeDetectorRef, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { ModelService } from 'src/app/services/model.service';
+import { Observable, Subscription } from 'rxjs';
+import { AppModel } from 'src/app/interfaces/app.interface';
 
 interface Iwork {
   name: string;
@@ -33,7 +36,7 @@ interface Iwork {
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   imports: [ CommonModule ]
 })
-export class CarouselComponent implements AfterViewInit {
+export class CarouselComponent implements OnInit, AfterViewInit, OnDestroy {
   workHistory: Iwork[] = [
     {
       name: 'Adecco Thailand',
@@ -69,10 +72,11 @@ export class CarouselComponent implements AfterViewInit {
   private ZERO = 0;
   private ONE = 1;
   private MINUS_ONE = -1;
-  private SMALL_SCREEN = 640;
-  private DELAY_LOAD_DOM = 50;
+  private DELAY_LOAD_DOM = 0;
+  private appModel$!: Observable<AppModel>;
+  private appModelSubscription!: Subscription;
 
-  public isScreenSmall: boolean = window.innerWidth <= this.SMALL_SCREEN;
+  public isPortraitView!: boolean;
   public mainContainerImageWidth: number = this.ZERO;
   public selectedWork: Iwork = {
     name: 'N/A',
@@ -86,22 +90,42 @@ export class CarouselComponent implements AfterViewInit {
     selected: false,
   };
 
+  constructor(
+    private cdr: ChangeDetectorRef,
+    private modelServices: ModelService,
+    private renderer: Renderer2
+    ) {
+      this.appModel$ = this.modelServices.getModel();
+    }
 
-  constructor(private renderer: Renderer2) {}
+  ngOnInit(): void {
+    this.appModelSubscription =this.appModel$.subscribe((models: AppModel) => {
+      this.isPortraitView = models.isPortraitView;
 
-  @HostListener('window:load', ['$event'])
-  onLoad(event: Event) {
-    this.updateTargetWidth();
+      if (this.isPortraitView) {
+        this.cdr.detectChanges();
+        this.updateCoverWorkDetailWidth();
+      }
+    });
+
+    this.sortByDefault(this.workHistory);
+    this.selectedWork = this.workHistory.find(work => work.selected) || this.workHistory[0];
   }
 
   ngAfterViewInit(): void {
-    this.updateTargetWidth();
+    this.cdr.detectChanges();
+    this.updateCoverWorkDetailWidth();
   }
 
-  updateTargetWidth() {
+  ngOnDestroy(): void {
+    if (this.appModelSubscription) {
+      this.appModelSubscription.unsubscribe();
+    }
+  }
+
+  updateCoverWorkDetailWidth(): void {
     const delayUpdateDOM = setTimeout(() => {
-      this.isScreenSmall = window.innerWidth <= this.SMALL_SCREEN;
-      if (this.isScreenSmall) {
+      if (this.isPortraitView) {
 
         this.mainContainerImages.forEach((elementRef: ElementRef) => {
           const mainContainerImageWidth = elementRef.nativeElement.offsetWidth;
@@ -130,11 +154,6 @@ export class CarouselComponent implements AfterViewInit {
     }, this.DELAY_LOAD_DOM);
   }
 
-  ngOnInit() {
-    this.sortByDefault(this.workHistory);
-    this.selectedWork = this.workHistory.find(work => work.selected) || this.workHistory[0];
-  }
-
   sortByDefault(items: any[]) {
     items.sort((a, b) => {
       // Items with `default: true` come first
@@ -149,7 +168,7 @@ export class CarouselComponent implements AfterViewInit {
     });
   }
 
-  selectWork(work: Iwork) {
+  selectWork(work: Iwork): void {
     this.selectedWork = work;
   }
 }

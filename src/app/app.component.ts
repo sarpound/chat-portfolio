@@ -8,6 +8,8 @@ import { ModelService } from './services/model.service';
 })
 export class AppComponent {
 
+  private PROTRAIT_SCREEN = 640;
+
   constructor(
     private modelServices: ModelService
   ) {}
@@ -22,7 +24,7 @@ export class AppComponent {
   }
 
   private isShowChatPanel(): void {
-    const isPortraitView = window.innerWidth <= 640;
+    const isPortraitView = window.innerWidth <= this.PROTRAIT_SCREEN;
 
     this.modelServices.updateModel({ isPortraitView: isPortraitView });
   }

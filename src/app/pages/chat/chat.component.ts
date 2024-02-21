@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { AppModel } from 'src/app/interfaces/app.interface';
 import { ModelService } from 'src/app/services/model.service';
 
@@ -13,6 +13,7 @@ export class ChatComponent implements OnInit {
   isChatPanelSelect: boolean = false;
 
   private appModel$!: Observable<AppModel>;
+  private appModelSubscription!: Subscription;
 
   constructor(
     private modelServices: ModelService
@@ -21,9 +22,15 @@ export class ChatComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.appModel$.subscribe((models: AppModel) => {
+    this.appModelSubscription = this.appModel$.subscribe((models: AppModel) => {
       this.isChatPanelSelect = models.isChatPanelSelect;
       this.isPortraitView = models.isPortraitView;
     });
+  }
+
+  ngOnDestroy(): void {
+    if (this.appModelSubscription) {
+      this.appModelSubscription.unsubscribe();
+    }
   }
 }
