@@ -99,11 +99,12 @@ export class CarouselComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
   ngOnInit(): void {
+    this.cdr.detectChanges();
+
     this.appModelSubscription =this.appModel$.subscribe((models: AppModel) => {
       this.isPortraitView = models.isPortraitView;
 
       if (this.isPortraitView) {
-        this.cdr.detectChanges();
         this.updateCoverWorkDetailWidth();
       }
     });
