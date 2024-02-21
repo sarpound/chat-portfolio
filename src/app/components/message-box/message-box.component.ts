@@ -38,7 +38,25 @@ export class MessageBoxComponent implements OnInit, OnDestroy {
   }
 
   private truncateMessage(message: string): string {
-    const maxLength = window.innerWidth > 1200 ? 36 : 30;
+    const windowWidth = window.innerWidth;
+    let maxLength = 30;
+
+    if (windowWidth > 420 && windowWidth < 520) {
+      maxLength = 50;
+    }
+
+    if (windowWidth > 521 && windowWidth < 621) {
+      maxLength = 60;
+    }
+
+    if (windowWidth > 620 && windowWidth < 769) {
+      maxLength = 70;
+    }
+
+    if (windowWidth > 1200) {
+      maxLength = 36;
+    }
+
     return message.length > maxLength ? message.slice(0, maxLength - 1) + '...' : message;
   }
 }
