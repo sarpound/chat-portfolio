@@ -1,0 +1,63 @@
+.work-project-img {
+  width: 100%;
+  overflow: hidden;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  height: 100%;
+  position: relative;
+}
+
+.work-project-wrap {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
+  -ms-overflow-style: none; /* for Internet Explorer and Edge */
+  scrollbar-width: none; /* for Firefox */
+  &::-webkit-scrollbar { /* for Chrome, Safari, and Opera */
+    display: none;
+  }
+}
+
+.work-project-item {
+  display: flex;
+  flex-direction: column;
+  width: 241px;
+  height: 100%;
+  margin-bottom: 10px;
+  margin-right: 15px;
+}
+
+.work-project-descript-wrap {
+  display: flex;
+  flex-direction: column;
+  -webkit-box-flex: 1;
+  flex-grow: 1;
+  flex-shrink: 0;
+}
+
+.work-project-descript {
+  margin-top: 5px;
+  margin-bottom: 10px;
+  word-wrap: break-word;
+}
+
+.work-project-descript label { //น่าจะเอาไปประยุทใช้กับ msg ตัวอย่างใน msg box list ได้ ไม่ต้องแบ่งเอง
+  // display: -webkit-box;
+  // overflow: hidden;
+  // word-break: break-word;
+  // -webkit-box-orient: vertical;
+  // -webkit-line-clamp: 2;
+}
+
+.project-name {
+  font-weight: bold;
+}
+
+@media screen and (min-width: 769px) {
+  .work-project-item {
+    width: 205px !important;
+  }
+}
