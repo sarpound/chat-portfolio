@@ -10,7 +10,8 @@
     >
       <swiper-slide *ngFor="let item of workHistory" class="main-image-display">
         <div #mainContainerImages [@fade]="item.coverUrl" class="main-container-image">
-          <img [src]="item.coverMobilUrl ? item.coverMobilUrl : item.coverUrl" [alt]="item.shortName + '-cover'">
+          <!--bug บางครั้ง component ไม่ทันโหลดเราดึง width ที่เป็น 0 ไปค่าอาจจะเพี้ยน วิธีแก้น่าจะใช้ div สีพื้นหลอกไว้น่อยก่อนจะโหลดภาพเสร็จ-->
+          <img [src]="item.coverUrl" [alt]="item.shortName + '-cover'">
           <div #coverDetails class="cover-details">
             <div class="cover-details-logo">
               <img [src]="item.logoUrl" [alt]="item.shortName + '-logo'">

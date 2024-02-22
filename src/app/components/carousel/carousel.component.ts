@@ -14,7 +14,6 @@ interface Iwork {
   date: string;
   logoUrl: string;
   coverUrl: string;
-  coverMobilUrl?: string;
   iconUrl: string;
   selected: boolean;
 }
@@ -57,7 +56,6 @@ export class CarouselComponent implements OnInit, AfterViewInit, OnDestroy {
       date: '1 Oct 2021 - 30 April 2023',
       logoUrl: '/assets/images/lseg_logo.png',
       coverUrl: '/assets/images/lseg_work_cover.png',
-      coverMobilUrl: '/assets/images/lseg_work_cover_mobil.png',
       iconUrl: '/assets/images/lseg_icon.jpg',
       selected: true
     }
@@ -99,8 +97,6 @@ export class CarouselComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
   ngOnInit(): void {
-    this.cdr.detectChanges();
-
     this.appModelSubscription =this.appModel$.subscribe((models: AppModel) => {
       this.isPortraitView = models.isPortraitView;
 
@@ -114,8 +110,8 @@ export class CarouselComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    this.cdr.detectChanges();
     this.updateCoverWorkDetailWidth();
+    this.cdr.detectChanges();
   }
 
   ngOnDestroy(): void {
