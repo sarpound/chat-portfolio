@@ -20,6 +20,12 @@ import { WorkComponent } from './pages/work/work.component';
 import { WorkProjectComponent } from './components/work-project/work-project.component';
 
 import { AppRoutingModule } from './app-routing.module';
+import { ScreenTrackingService, UserTrackingService } from '@angular/fire/analytics';
+import { AngularFireAnalyticsModule } from "@angular/fire/compat/analytics";
+import { AngularFireModule } from "@angular/fire/compat";
+
+import { environment } from './environments/environment';
+
 
 @NgModule({
   declarations: [
@@ -37,6 +43,8 @@ import { AppRoutingModule } from './app-routing.module';
     ProjectComponent,
   ],
   imports: [
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireAnalyticsModule,
     AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
@@ -45,7 +53,10 @@ import { AppRoutingModule } from './app-routing.module';
     MaterialModule,
     WorkProjectComponent
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    ScreenTrackingService,
+    UserTrackingService
+  ],
+  bootstrap: [ AppComponent ]
 })
 export class AppModule { }
