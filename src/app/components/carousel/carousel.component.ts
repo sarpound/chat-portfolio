@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChildren, QueryList, AfterViewInit, CUSTOM_ELEMENTS_SCHEMA, Renderer2, ChangeDetectorRef, OnInit, OnDestroy } from '@angular/core';
+import { Component, ElementRef, ViewChildren, QueryList, CUSTOM_ELEMENTS_SCHEMA, Renderer2, ChangeDetectorRef, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { trigger, state, style, transition, animate } from '@angular/animations';
@@ -61,21 +61,23 @@ export class CarouselComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   ];
 
+  @ViewChild('carousel') carousel!: ElementRef;
   @ViewChildren('mainContainerImages') mainContainerImages!: QueryList<ElementRef>;
   @ViewChildren('coverDetails') coverDetails!: QueryList<ElementRef>;
   @ViewChildren('coverIntros') coverIntros!: QueryList<ElementRef>;
   @ViewChildren('descriptPosition') descriptPositions!: QueryList<ElementRef>;
   @ViewChildren('descriptDate') descriptDates!: QueryList<ElementRef>;
 
-  private ZERO = 0;
-  private ONE = 1;
-  private MINUS_ONE = -1;
+  private ALL_SAME_POSITION = 0;
+  private CHANGE_TO_FIRST = 1;
+  private NOT_CHANGE = -1;
   private DELAY_LOAD_DOM = 0;
+  private MINIMUN_SCREEN_WIDTH = 360;
   private appModel$!: Observable<AppModel>;
   private appModelSubscription!: Subscription;
 
   public isPortraitView!: boolean;
-  public mainContainerImageWidth: number = this.ZERO;
+  public mainContainerImageWidth: number = window.screen.width;
   public selectedWork: Iwork = {
     name: 'N/A',
     shortName: 'N/A',
@@ -123,9 +125,10 @@ export class CarouselComponent implements OnInit, AfterViewInit, OnDestroy {
   updateCoverWorkDetailWidth(): void {
     const delayUpdateDOM = setTimeout(() => {
       if (this.isPortraitView) {
+        let carouselWidth = this.carousel.nativeElement.offsetWidth || this.MINIMUN_SCREEN_WIDTH;
 
         this.mainContainerImages.forEach((elementRef: ElementRef) => {
-          const mainContainerImageWidth = elementRef.nativeElement.offsetWidth;
+          const mainContainerImageWidth = carouselWidth;
           const coverDetails = elementRef.nativeElement.querySelector('.cover-details');
           const coverIntro = elementRef.nativeElement.querySelector('.cover-details-intro');
           const descriptPosition = elementRef.nativeElement.querySelector('.descriptPosition');
@@ -152,16 +155,16 @@ export class CarouselComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   sortByDefault(items: any[]) {
-    items.sort((a, b) => {
+    items.sort((first, sencond) => {
       // Items with `default: true` come first
-      if (a.selected === true && b.selected !== true) {
-        return this.MINUS_ONE;
+      if (first.selected === true && sencond.selected !== true) {
+        return this.NOT_CHANGE;
       }
-      if (a.selected !== true && b.selected === true) {
-        return this.ONE;
+      if (first.selected !== true && sencond.selected === true) {
+        return this.CHANGE_TO_FIRST;
       }
       // If all items have the same `default` status, they remain in their original order (stable sort)
-      return this.ZERO;
+      return this.ALL_SAME_POSITION;
     });
   }
 

@@ -6,7 +6,8 @@ interface IworkProject {
   companyName: string;
   description: string;
   techStack?: string[];
-  projectImage: string;
+  imageUrl: string;
+  loading: boolean;
 }
 
 @Component({
@@ -18,20 +19,22 @@ interface IworkProject {
 })
 
 export class WorkProjectComponent {
-  workHistory: IworkProject[] = [
+  workProjects: IworkProject[] = [
     {
       name: 'FXForwards Calculator',
       companyName: 'LSEG',
-      description: 'FXForwards is a contractual agreement between the client and the bank, or a non-bank provider, to exchange a pair of currencies at a set rate on a future date.',
+      description: 'FXForward is a platform in Refinitiv that are derivative contracts that allow participants to exchange currencies at a predetermined rate on a future date, used for hedging or speculating on currency movements.',
       techStack: ['Angular 8', 'RxJs'],
-      projectImage: ''
+      imageUrl: '/assets/images/fxforwards_project_icon.png', //ไม่โอเคร
+      loading: true
     },
     {
-      name: 'MUNI',
+      name: 'Particle App Proxy',
       companyName: 'LSEG',
-      description: '',
-      techStack: [],
-      projectImage: ''
+      description: 'Particle app proxy is a server-side application platform built with Node.js and Express.js. It utilizes service workers to create a localhost environment on a real domain, acting as a proxy for the application. This approach resolves Cross-Origin Resource Sharing (CORS) issues that developers in my department often encounter when connecting to real API domains from localhost. Additionally, it can intercept requests from the backend, substituting mockup data JSON when a registered request matches, thus facilitating smooth testing and development processes.',
+      techStack: ['Angular 15', 'RxJs', 'Node Js', 'Express Js', 'Service Worker'],
+      imageUrl: '/assets/images/particle_app_proxy.png', //ไม่โอเคร
+      loading: true
     }
   ];
 }
