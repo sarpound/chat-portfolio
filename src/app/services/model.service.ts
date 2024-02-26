@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, distinctUntilChanged, map } from 'rxjs';
 import { appModel } from '../models/app.model';
 import { AppModel } from '../interfaces/app.interface';
-import { IMessage } from '../interfaces/message-chat';
+import { IMessage } from '../interfaces/message-chat.interface';
 
 @Injectable({
   providedIn: 'root'

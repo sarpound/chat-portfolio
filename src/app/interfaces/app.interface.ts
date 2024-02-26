@@ -1,4 +1,4 @@
-import { IMessage } from "./message-chat";
+import { IMessage } from "./message-chat.interface";
 
 export interface AppModel {
   currentMessage: IMessage;

@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { FALLBACK_MESSAGE, GREETING_MESSAGE } from 'src/app/constants/defaultMessage';
 import { INDENT } from 'src/app/constants/indent';
-import { IMessage, Indent } from 'src/app/interfaces/message-chat';
+import { IMessage, Indent } from 'src/app/interfaces/message-chat.interface';
 import { ModelService } from 'src/app/services/model.service';
 import { getCurrentDate, getCurrentTime } from 'src/app/shared/utils/date.util';
 

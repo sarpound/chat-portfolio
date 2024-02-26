@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
-import { IMessage } from 'src/app/interfaces/message-chat';
+import { IMessage } from 'src/app/interfaces/message-chat.interface';
 import { ModelService } from 'src/app/services/model.service';
 
 @Component({

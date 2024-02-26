@@ -1,4 +1,4 @@
-import { Indent } from "../interfaces/message-chat";
+import { Indent } from "../interfaces/message-chat.interface";
 
 export const INDENT: Indent = {
   greeting: {

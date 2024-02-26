@@ -5,18 +5,8 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 import { ModelService } from 'src/app/services/model.service';
 import { Observable, Subscription } from 'rxjs';
 import { AppModel } from 'src/app/interfaces/app.interface';
-
-interface Iwork {
-  name: string;
-  shortName: string;
-  description: string;
-  position: string;
-  date: string;
-  logoUrl: string;
-  coverUrl: string;
-  iconUrl: string;
-  selected: boolean;
-}
+import { Iwork } from 'src/app/interfaces/works.interface';
+import { WORKS } from 'src/app/constants/works';
 
 @Component({
   selector: 'carousel',
@@ -36,30 +26,7 @@ interface Iwork {
   imports: [ CommonModule ]
 })
 export class CarouselComponent implements OnInit, AfterViewInit, OnDestroy {
-  workHistory: Iwork[] = [
-    {
-      name: 'Adecco Thailand',
-      shortName: 'Adecco',
-      description: 'Adecco Thailand: Pioneering Recruitment and Employment Services for Dynamic Workforce Solutions.',
-      position: 'Web Developer (Internship)',
-      date: '1 June 2020 - 31 July 2020',
-      logoUrl: '/assets/images/adecco_logo.png',
-      coverUrl: '/assets/images/adecco_work_cover.png',
-      iconUrl: '/assets/images/adecco_icon.png',
-      selected: false,
-    },
-    {
-      name: 'London Stock Group Exchange',
-      shortName: 'LSEG',
-      description: 'LSEG: Global Leaders in Financial Infrastructure, Fostering Innovation and Economic Growth.',
-      position: 'Software Engineer',
-      date: '1 Oct 2021 - 30 April 2023',
-      logoUrl: '/assets/images/lseg_logo.png',
-      coverUrl: '/assets/images/lseg_work_cover.png',
-      iconUrl: '/assets/images/lseg_icon.jpg',
-      selected: true
-    }
-  ];
+  workHistory: Iwork[] = WORKS;
 
   @ViewChild('carousel') carousel!: ElementRef;
   @ViewChildren('mainContainerImages') mainContainerImages!: QueryList<ElementRef>;
@@ -125,7 +92,7 @@ export class CarouselComponent implements OnInit, AfterViewInit, OnDestroy {
   updateCoverWorkDetailWidth(): void {
     const delayUpdateDOM = setTimeout(() => {
       if (this.isPortraitView) {
-        let carouselWidth = this.carousel.nativeElement.offsetWidth || this.MINIMUN_SCREEN_WIDTH;
+        const carouselWidth = this.carousel.nativeElement.offsetWidth || this.MINIMUN_SCREEN_WIDTH;
 
         this.mainContainerImages.forEach((elementRef: ElementRef) => {
           const mainContainerImageWidth = carouselWidth;
