@@ -10,7 +10,6 @@
     >
       <swiper-slide *ngFor="let item of workHistory" class="main-image-display" lazy="true">
         <div #mainContainerImages [@fade]="item.coverUrl" class="main-container-image">
-          <!--bug บางครั้ง component ไม่ทันโหลดเราดึง width ที่เป็น 0 ไปค่าอาจจะเพี้ยน วิธีแก้น่าจะใช้ div สีพื้นหลอกไว้น่อยก่อนจะโหลดภาพเสร็จ-->
           <img [src]="item.coverUrl" [alt]="item.shortName + '-cover'" loading="lazy">
           <div #coverDetails class="cover-details">
             <div class="cover-details-logo">
