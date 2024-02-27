@@ -25,6 +25,7 @@ import { AngularFireAnalyticsModule } from "@angular/fire/compat/analytics";
 import { AngularFireModule } from "@angular/fire/compat";
 
 import { environment } from './environments/environment';
+import { AppFxforwardComponent } from './app-fxforward/app-fxforward.component';
 
 
 @NgModule({
@@ -43,6 +44,7 @@ import { environment } from './environments/environment';
     ProjectComponent,
   ],
   imports: [
+    AppFxforwardComponent,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAnalyticsModule,
     AppRoutingModule,

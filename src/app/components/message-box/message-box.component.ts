@@ -21,7 +21,7 @@ export class MessageBoxComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.currentMessage$ = this.modelService.getCurrentMessage();
     this.appModelSubscription = this.currentMessage$.subscribe(({ message, time }) => {
-      this.currentMessage = message;
+      this.currentMessage = message.replace('<br>', '');
       this.currentMsgTime = time || '';
     });
   }
