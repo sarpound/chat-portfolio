@@ -1,23 +1,49 @@
+:host {
+  background-color: #151516;
+  color: #b5b5b5;
+
+  input {
+    outline: none;
+  }
+}
+
 ::ng-deep {
   .mat-expansion-panel-header {
     background-color: #4A4A52 !important;
     color: white !important;
+    height: 40px !important;
   }
 
   .mat-expansion-panel-body {
     padding: 0px !important;
     margin: 0px !important;
+    color: #8e8e8e;
+    background-color: #151516;
+  }
+
+  mat-datepicker-toggle {
+    color: #b5b5b5 !important;
+  }
+
+  .mat-mdc-button-touch-target {
+    margin: 0px !important;
   }
 }
 
 .app-header {
-  width: 100%;
-  height: 35px;
+  padding: 5px 8px 8px 8px;
+  background-color: #4A4A52;
+  color: #ffffff;
 }
 
-.app-input {
-  width: 100%;
+.app-input-panel {
   height: 120px;
+  padding: 8px
+}
+
+.app-input-date {
+  display: flex;
+  flex-direction: row;
 }
 
 .app-calulation {
@@ -28,4 +54,48 @@
 .app-table {
   width: 100%;
   height: 200px;
+}
+
+.app-table th {
+  background-color: #212124;
+}
+
+.currency-input {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-color: #000000;
+  color: #b5b5b5;
+  border: #8e8e8e solid 1px;
+}
+
+.currency-flag {
+  width: 40px;
+  height: 30px;
+}
+
+.date-picker-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.date-input {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-right: 32px;
+  background-color: #000000;
+  color: aquamarine;
+  border: #8e8e8e solid 1px;
+}
+
+.date-input-toggle {
+  position: relative;
+  left: -15%;
+}
+
+.flavor-button {
+  background-color: #49494E;
+  color: #b5b5b5;
+  font-weight: 530;
+  padding: 5px;
 }

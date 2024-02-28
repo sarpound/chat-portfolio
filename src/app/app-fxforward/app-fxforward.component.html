@@ -1,9 +1,38 @@
 <div class="h-100 border-red" style="background-color: #151516;">
-  <div class="app-header border-red">
-    <span class="fi fi-eu"></span> <span class="fi fi-gb"></span>
+  <div class="app-header d-flex align-items-center">
+    <span class="currency-flag fi fi-eu"></span>
+    <span class="currency-flag fi fi-gb"></span>
+    <span class="font-500 ml-5"> Euro / British Pound</span>
   </div>
-  <div class="app-input border-red">
+  <div class="app-input-panel border-red">
+    <diV class="app-input-container">
+      <div class="app-input-currency">
+        <span>
+          <input class="currency-input mr-20" value="EURGBP">
+          <label class="mr-20">Calculate:</label>
+          <button class="flavor-button">FX Forwards</button>
+          <button class="flavor-button">Rates</button>
+          <label class="ml-20 mr-20">From:</label>
+          <button class="flavor-button">FX Forwards</button>
+          <button class="flavor-button">Rates</button>
+        </span>
+      </div>
+      <div class="app-input-date-container">
+        <div class="app-input-date">
+          <label class="mr-20 d-flex justify-center align-items-center">
+            Trade Date
+          </label>
+          <div class="date-picker-container">
+            <input title="Input your date for calculating" matInput [matDatepicker]="picker" class="date-input">
+            <mat-datepicker-toggle matSuffix [for]="picker" class="date-input-toggle"></mat-datepicker-toggle>
+            <mat-datepicker #picker ></mat-datepicker>
+          </div>
+        </div>
+        <div class="app-input-spot">
 
+        </div>
+      </div>
+    </diV>
   </div>
   <mat-expansion-panel togglePosition="before">
     <mat-expansion-panel-header>
