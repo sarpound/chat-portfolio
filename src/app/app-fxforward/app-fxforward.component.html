@@ -1,79 +1,139 @@
-<div class="h-100 border-red" style="background-color: #151516;">
-  <div class="app-header d-flex align-items-center">
-    <span class="currency-flag fi fi-eu"></span>
-    <span class="currency-flag fi fi-gb"></span>
-    <span class="font-500 ml-5"> Euro / British Pound</span>
-  </div>
-  <div class="app-input-panel border-red">
-    <diV class="app-input-container">
-      <div class="app-input-currency">
-        <span>
-          <input class="currency-input mr-20" value="EURGBP">
-          <label class="mr-20">Calculate:</label>
-          <button class="flavor-button">FX Forwards</button>
-          <button class="flavor-button">Rates</button>
-          <label class="ml-20 mr-20">From:</label>
-          <button class="flavor-button">FX Forwards</button>
-          <button class="flavor-button">Rates</button>
-        </span>
-      </div>
-      <div class="app-input-date-container">
-        <div class="app-input-date">
-          <label class="mr-20 d-flex justify-center align-items-center">
-            Trade Date
-          </label>
-          <div class="date-picker-container">
-            <input title="Input your date for calculating" matInput [matDatepicker]="picker" class="date-input">
-            <mat-datepicker-toggle matSuffix [for]="picker" class="date-input-toggle"></mat-datepicker-toggle>
-            <mat-datepicker #picker ></mat-datepicker>
+<div class="h-100" style="background-color: #151516;">
+  <div class="app-fxforward border-">
+    <div class="app-header d-flex align-items-center">
+      <span class="currency-flag fi fi-eu"></span>
+      <span class="currency-flag fi fi-gb"></span>
+      <span class="font-500 ml-5"> {{ currency1 + "/" + currency2 }}</span>
+    </div>
+    <div class="app-input-panel border-">
+      <diV class="app-input-container">
+        <div class="app-input-currency border-">
+          <span>
+            <input #currencyPairElement class="app-input mr-20" [value]="currencyPair" (blur)="handleCurrencyChanged()">
+            <label class="mr-20">Calculate:</label>
+            <button class="app-button" [class.app-button-active]="isCalFxForwardsActive" (click)="activateButton('calFxForwards')">FX Forwards</button>
+            <button class="app-button" [class.app-button-active]="isCalRatesActive" (click)="activateButton('calRates')">Rates</button>
+            <label class="ml-20 mr-20">From:</label>
+            <button class="app-button" [class.app-button-active]="isFromFxForwardsActive" (click)="activateButton('fromFxForwards')">FX Forwards</button>
+            <button class="app-button" [class.app-button-active]="isFromRatesActive" (click)="activateButton('fromRates')">Rates</button>
+          </span>
+        </div>
+        <div class="app-input-date-container border-">
+          <div class="app-input-datte-container-left">
+            <div class="app-input-date">
+              <label class="mr-20 d-flex justify-center align-items-center">
+                Trade Date
+              </label>
+              <div class="date-picker-container">
+                <input
+                title="Input your date for calculating"
+                matInput
+                [matDatepicker]="picker"
+                class="date-input"
+                [(ngModel)]="tradeDate"
+                (dateChange)="onDateChange($event)"
+                >
+                <mat-datepicker-toggle matSuffix [for]="picker" class="date-input-toggle"></mat-datepicker-toggle>
+                <mat-datepicker #picker ></mat-datepicker>
+              </div>
+            </div>
+            <div>
+              <label class="mr-20">
+                Value Date
+              </label>
+              <label class="value-date">
+                {{ valueDate }}
+              </label>
+            </div>
+          </div>
+          <div class="app-input-date-container-right">
+            <div class="currency-spot">
+            <label class="mb-10 font-500">{{ currency1 }}/USD Spot</label>
+            <div class="d-flex flex-direction-row">
+              <input class="app-input-value" value="1.1">
+              <input class="app-input-value" value="1.1">
+            </div>
+            </div>
+            <div class="currency-spot">
+              <label class="mb-10 font-500">{{ currency2 }}/USD Spot</label>
+              <div class="d-flex flex-direction-row">
+                <input class="app-input-value" value="1.1">
+                <input class="app-input-value" value="1.1">
+              </div>
+            </div>
+            <div class="currency-spot">
+              <label class="mb-10 font-500">{{ currency1 }}/{{ currency2 }} Spot</label>
+              <div class="d-flex flex-direction-row">
+                <input class="app-input-value" value="1.1">
+                <input class="app-input-value" value="1.1">
+              </div>
+            </div>
           </div>
         </div>
-        <div>
-          <label class="mr-20">
-            Value Date
-          </label>
-          <label class="value-date">
-            2/3/2024
-          </label>
+      </diV>
+    </div>
+    <mat-expansion-panel togglePosition="before">
+      <mat-expansion-panel-header>
+        Calculation Parameters
+      </mat-expansion-panel-header>
+      <ng-template matExpansionPanelContent>
+        <div class="app-calulation border-">
+          <div class="app-menu mt-5">
+            <button class="app-button app-button-active">Market Inputs</button>
+          </div>
+          <div class="app-menu-item-container">
+            <div class="app-menu-items">
+              <label>Reference</label>
+              <button class="app-button">USD</button>
+            </div>
+            <div class="app-menu-items">
+              <label>IMM Periods</label>
+              <button class="app-button" (click)="immPeriods = (immPeriods === 'No') ? 'Yes' : 'No'">{{ immPeriods }}</button>
+            </div>
+            <div class="app-menu-items">
+              <label>Swap Points Interpolation</label>
+              <button class="app-button">Linear</button>
+            </div>
+            <div class="app-menu-items">
+              <label>Odd Periods</label>
+              <button class="app-button" (click)="oddPeriods = (oddPeriods === 'No') ? 'Yes' : 'No'">{{ oddPeriods }}</button>
+            </div>
+            <div class="app-menu-items">
+              <label>Roll-Over</label>
+              <label>New York 5 PM</label>
+            </div>
+            <div class="app-menu-items"></div>
+            <div class="app-menu-items">
+              <label>Long Periods</label>
+              <button class="app-button" (click)="longPeriods = (longPeriods === 'No') ? 'Yes' : 'No'">{{ longPeriods }}</button>
+            </div>
+          </div>
         </div>
-        <div class="app-input-spot">
+      </ng-template>
+    </mat-expansion-panel>
 
-        </div>
-      </div>
-    </diV>
+    <mat-expansion-panel togglePosition="before" [expanded]="true">
+      <mat-expansion-panel-header>
+        Standard Periods
+      </mat-expansion-panel-header>
+      <ng-template matExpansionPanelContent>
+        <table class="app-table border-">
+          <thead>
+            <tr>
+              <th scope="col">Period</th>
+              <th scope="col">Currency Dates</th>
+              <th scope="col">Day</th>
+              <th scope="col">{{ currency1 }}/USD Swap Points</th>
+              <th scope="col">{{ currency2 }}/USD Swap Points</th>
+              <th scope="col">{{ currency1 }}/{{ currency2 }} Swap Points</th>
+              <th scope="col">{{ currency1 }}/{{ currency2 }} Outrights</th>
+            </tr>
+          </thead>
+          <tbody style="height: 200px;">
+
+          </tbody>
+        </table>
+      </ng-template>
+    </mat-expansion-panel>
   </div>
-  <mat-expansion-panel togglePosition="before">
-    <mat-expansion-panel-header>
-      Calculation Parameters
-    </mat-expansion-panel-header>
-    <ng-template matExpansionPanelContent>
-      <div class="app-calulation border-red">
-
-      </div>
-    </ng-template>
-  </mat-expansion-panel>
-
-  <mat-expansion-panel togglePosition="before">
-    <mat-expansion-panel-header>
-      Standard Periods
-    </mat-expansion-panel-header>
-    <ng-template matExpansionPanelContent>
-      <table class="app-table border-red">
-        <thead>
-          <tr>
-            <th scope="col">Period</th>
-            <th scope="col">Currency Dates</th>
-            <th scope="col">Day</th>
-            <th scope="col">Ccy1 Swap Points</th>
-            <th scope="col">Ccy2 Swap Points</th>
-            <th scope="col">Ccy1/Ccy2 Swap Points</th>
-            <th scope="col">Ccy1 Outrights</th>
-          </tr>
-        </thead>
-        <tbody style="height: 200px;">
-
-        </tbody>
-      </table>
-    </ng-template>
-  </mat-expansion-panel>
 </div>

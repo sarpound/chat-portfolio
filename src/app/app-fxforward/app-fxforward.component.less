@@ -30,15 +30,51 @@
   }
 }
 
+.app-fxforward {
+  width: 1400px;
+  height: 100%;
+}
+
 .app-header {
   padding: 5px 8px 8px 8px;
   background-color: #4A4A52;
   color: #ffffff;
 }
 
+.app-input {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-color: #000000;
+  color: #b5b5b5;
+  border: #8e8e8e solid 1px;
+}
+
+.app-input-value {
+  width: 120px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-color: #000000;
+  color: #b5b5b5;
+  border: #8e8e8e solid 1px;
+  text-align: end;
+}
+
 .app-input-panel {
   height: 120px;
-  padding: 8px
+  width: 80%;
+  padding: 8px;
+}
+
+.app-input-date-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.app-input-date-container-right {
+  display: inline-grid;
+  grid-template-columns: auto auto auto;
+  padding-top: 10px;
 }
 
 .app-input-date {
@@ -48,7 +84,6 @@
 
 .app-calulation {
   width: 100%;
-  height: 120px;
 }
 
 .app-table {
@@ -60,12 +95,10 @@
   background-color: #212124;
 }
 
-.currency-input {
-  padding-top: 5px;
-  padding-bottom: 5px;
-  background-color: #000000;
-  color: #b5b5b5;
-  border: #8e8e8e solid 1px;
+.currency-spot {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
 }
 
 .currency-flag {
@@ -77,6 +110,7 @@
   position: relative;
   display: flex;
   align-items: center;
+  flex-direction: row;
 }
 
 .date-input {
@@ -93,11 +127,35 @@
   left: -15%;
 }
 
-.flavor-button {
+.app-button {
   background-color: #49494E;
   color: #b5b5b5;
   font-weight: 530;
   padding: 5px;
+}
+
+.app-button-active {
+  background-color: rgb(66, 66, 66);
+  box-shadow: 0 1px #666;
+  color: #FF9933;
+}
+
+.app-menu-item-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  row-gap: 5px;
+  padding: 15px;
+}
+
+.app-menu-items {
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: space-between;
+  width: 300px;
+}
+
+.app-menu-items button {
+  width: 100px;
 }
 
 .value-date {
