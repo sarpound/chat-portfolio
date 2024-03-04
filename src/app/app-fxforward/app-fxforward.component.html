@@ -1,4 +1,4 @@
-<div class="h-100" style="background-color: #151516;">
+<div style="background-color: #151516; display: block;">
   <div class="app-fxforward border-">
     <div class="app-header d-flex align-items-center">
       <span class="currency-flag fi fi-eu"></span>
@@ -50,22 +50,22 @@
             <div class="currency-spot">
             <label class="mb-10 font-500">{{ currency1 }}/USD Spot</label>
             <div class="d-flex flex-direction-row">
-              <input class="app-input-value" value="1.1">
-              <input class="app-input-value" value="1.1">
+              <input class="app-input-value" [value]="currencyPairData[0].currency1_USD_swap_points$ | async">
+              <input class="app-input-value" [value]="currencyPairData[0].currency2_USD_swap_points$ | async">
             </div>
             </div>
             <div class="currency-spot">
               <label class="mb-10 font-500">{{ currency2 }}/USD Spot</label>
               <div class="d-flex flex-direction-row">
-                <input class="app-input-value" value="1.1">
-                <input class="app-input-value" value="1.1">
+                <input class="app-input-value" [value]="currencyPairData[0].currency2_USD_swap_points$ | async">
+                <input class="app-input-value" [value]="currencyPairData[0].currency1_USD_swap_points$ | async">
               </div>
             </div>
             <div class="currency-spot">
               <label class="mb-10 font-500">{{ currency1 }}/{{ currency2 }} Spot</label>
               <div class="d-flex flex-direction-row">
-                <input class="app-input-value" value="1.1">
-                <input class="app-input-value" value="1.1">
+                <input class="app-input-value" [value]="currencyPairData[0].currency1_currency2_swap_points$ | async">
+                <input class="app-input-value" [value]="currencyPairData[0].currency1_currency2_outrights$ | async">
               </div>
             </div>
           </div>
@@ -120,16 +120,61 @@
         <table class="app-table border-">
           <thead>
             <tr>
+              <th scope="col"></th>
               <th scope="col">Period</th>
-              <th scope="col">Currency Dates</th>
+              <th scope="col"></th>
+              <th scope="col" colspan="2">{{ currency1 }}/{{ currency2 }} Dates</th>
               <th scope="col">Day</th>
-              <th scope="col">{{ currency1 }}/USD Swap Points</th>
-              <th scope="col">{{ currency2 }}/USD Swap Points</th>
-              <th scope="col">{{ currency1 }}/{{ currency2 }} Swap Points</th>
-              <th scope="col">{{ currency1 }}/{{ currency2 }} Outrights</th>
+              <th scope="col" colspan="2">{{ currency1 }}/USD Swap Points</th>
+              <th scope="col" colspan="2">{{ currency2 }}/USD Swap Points</th>
+              <th scope="col" colspan="2">{{ currency1 }}/{{ currency2 }} Swap Points</th>
+              <th scope="col" colspan="2">{{ currency1 }}/{{ currency2 }} Outrights</th>
             </tr>
           </thead>
-          <tbody style="height: 200px;">
+          <tbody>
+            <tr *ngFor="let item of currencyPairData">
+              <td>
+                <input type="checkbox" class="checkbox">
+              </td>
+              <td>{{ item.period }}</td>
+              <td class="day-off-color">{{ item.day }}</td>
+              <td class="market-color">{{ item.currency1_currency2_dates.start_date }}</td>
+              <td class="market-color">{{ item.currency1_currency2_dates.end_date }}</td>
+              <td class="market-color">{{ item.day_value }}</td>
+              <td><input class="app-input-value w-100" [value]="item.currency1_USD_swap_points$ | async"></td>
+              <td><input class="app-input-value" [value]="item.currency2_USD_swap_points$ | async" style="float: left;"></td>
+              <td><input class="app-input-value" [value]="item.currency1_USD_swap_points$ | async"></td>
+              <td><input class="app-input-value" [value]="item.currency2_USD_swap_points$ | async" style="float: left;"></td>
+              <td class="market-color">{{ item.currency1_currency2_swap_points$ | async }}</td>
+              <td class="market-color">{{ item.currency1_currency2_outrights$ | async }}</td>
+              <td class="market-color">{{ item.currency1_currency2_swap_points$ | async }}</td>
+              <td class="market-color">{{ item.currency1_currency2_outrights$ | async }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-template>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel togglePosition="before" [expanded]="true">
+      <mat-expansion-panel-header>
+        Broken Dates
+      </mat-expansion-panel-header>
+      <ng-template matExpansionPanelContent>
+        <table class="app-table border-">
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">Start</th>
+              <th scope="col">End</th>
+              <th scope="col">Day</th>
+              <th scope="col"></th>
+              <th scope="col" colspan="2">{{ currency1 }}/USD Swap Points</th>
+              <th scope="col" colspan="2">{{ currency2 }}/USD Swap Points</th>
+              <th scope="col" colspan="2">{{ currency1 }}/{{ currency2 }} Swap Points</th>
+              <th scope="col" colspan="2">{{ currency1 }}/{{ currency2 }} Outrights</th>
+            </tr>
+          </thead>
+          <tbody>
 
           </tbody>
         </table>

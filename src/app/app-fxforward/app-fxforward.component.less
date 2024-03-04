@@ -28,10 +28,19 @@
   .mat-mdc-button-touch-target {
     margin: 0px !important;
   }
+
+  .mdc-checkbox {
+    padding: 0px !important;
+  }
+}
+
+tbody {
+  text-align: right;
+  font-weight: 450;
 }
 
 .app-fxforward {
-  width: 1400px;
+  max-width: 1600px;
   height: 100%;
 }
 
@@ -95,6 +104,14 @@
   background-color: #212124;
 }
 
+.app-table thead tr th:nth-child(1) {
+  width: fit-content;
+}
+
+.app-table thead tr th:nth-child(3) {
+  width: fit-content;
+}
+
 .currency-spot {
   display: flex;
   flex-direction: column;
@@ -104,6 +121,44 @@
 .currency-flag {
   width: 40px;
   height: 30px;
+}
+
+/* Hide the default checkbox */
+.checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  /* Set the dimensions */
+  width: 15px;
+  height: 15px;
+  /* Use a custom background color */
+  background-color: black;
+  /* Add a border */
+  border: 2px solid grey;
+  /* Position the checkbox relative to its container */
+  position: relative;
+}
+
+/* Hide the default checkmark */
+.checkbox::before {
+  content: '\2713'; /* Unicode character for checkmark */
+  /* Position the checkmark in the center */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* Set the color of the checkmark */
+  color: transparent;
+  /* Hide the checkmark by default */
+  visibility: hidden;
+}
+
+/* Style the checkbox when it's checked */
+.checkbox:checked::before {
+  /* Show the checkmark */
+  visibility: visible;
+  /* Set the color of the checkmark */
+  color: orange;
 }
 
 .date-picker-container {
@@ -160,4 +215,12 @@
 
 .value-date {
   color: #02FFDD;
+}
+
+.market-color {
+  color: #02FFDD;
+}
+
+.day-off-color {
+  color: #FF9933;
 }
