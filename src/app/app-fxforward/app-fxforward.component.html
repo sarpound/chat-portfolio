@@ -1,8 +1,8 @@
 <div style="background-color: #151516; display: block;">
   <div class="app-fxforward border-">
     <div class="app-header d-flex align-items-center">
-      <span class="currency-flag fi fi-eu"></span>
-      <span class="currency-flag fi fi-gb"></span>
+      <span [class]="'currency-flag fi fi-' + ccy1FlagCode"></span>
+      <span [class]="'currency-flag fi fi-' + ccy2FlagCode"></span>
       <span class="font-500 ml-5"> {{ currency1 + "/" + currency2 }}</span>
     </div>
     <div class="app-input-panel border-">
@@ -132,7 +132,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let item of currencyPairData">
+            <tr *ngFor="let item of currencyPairData; let i = index" [ngClass]="{ 'odd-row': i % 2 !== 0, 'even-row': i % 2 === 0 }">
               <td>
                 <input type="checkbox" class="checkbox">
               </td>
@@ -175,7 +175,29 @@
             </tr>
           </thead>
           <tbody>
-
+            <tr *ngFor="let item of currencyPairData | slice:0:5; let i = index" [ngClass]="{ 'odd-row': i % 2 !== 0, 'even-row': i % 2 === 0 }">
+              <td>
+                <input type="checkbox" class="checkbox">
+              </td>
+              <td>
+                <input class="app-input" [value]="i === 4 ? '3M' : 'Spot'" style="width: 80px;" disabled>
+                  <mat-icon fontIcon="today" style="position: relative; right: 25px; top: 8px;"></mat-icon>
+              </td>
+              <td>
+                <input class="app-input" [value]="i + 1 +'M'" style="width: 80px;" disabled>
+                  <mat-icon fontIcon="today" style="position: relative; right: 25px; top: 8px;"></mat-icon>
+              </td>
+              <td class="market-color">{{ item.day_value }}</td>
+              <td class="day-off-color">{{ item.day }}</td>
+              <td><input class="app-input-value w-100" [value]="item.currency1_USD_swap_points$ | async"></td>
+              <td><input class="app-input-value" [value]="item.currency2_USD_swap_points$ | async" style="float: left;"></td>
+              <td><input class="app-input-value" [value]="item.currency1_USD_swap_points$ | async"></td>
+              <td><input class="app-input-value" [value]="item.currency2_USD_swap_points$ | async" style="float: left;"></td>
+              <td class="market-color">{{ item.currency1_currency2_swap_points$ | async }}</td>
+              <td class="market-color">{{ item.currency1_currency2_outrights$ | async }}</td>
+              <td class="market-color">{{ item.currency1_currency2_swap_points$ | async }}</td>
+              <td class="market-color">{{ item.currency1_currency2_outrights$ | async }}</td>
+            </tr>
           </tbody>
         </table>
       </ng-template>

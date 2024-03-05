@@ -229,6 +229,8 @@ export class AppFxforwardComponent implements OnInit {
   public currencyPair: string = 'EURGBP';
   public currency1: string = 'EUR';
   public currency2: string = 'GBP';
+  public ccy1FlagCode: string = 'eu';
+  public ccy2FlagCode: string = 'gb';
   public tradeDate: Date = new Date();
   public valueDate!: string;
   public immPeriods: string = 'No';
@@ -264,6 +266,8 @@ export class AppFxforwardComponent implements OnInit {
     periods.forEach((period, index) => {
       const startDate = formattedValueDate; // Start date is the valueDate
       const endDate = this.calculateEndDate(valueDate, dayValues[index]); // Calculate end date based on day value
+      const startDateString = new Date(startDate).toLocaleDateString('en-US', { day: '2-digit', month: 'short', year: 'numeric' });
+      const endDateString = new Date(endDate).toLocaleDateString('en-US', { day: '2-digit', month: 'short', year: 'numeric' });
       const calculatedDayValue = this.calculateDayValue(valueDate, endDate); // Calculate day value based on start and end dates
 
       // Find existing data for the current period
@@ -280,8 +284,8 @@ export class AppFxforwardComponent implements OnInit {
         period: period,
         day: (period === "SW" || period === "3W" || period === "6M" || period === "9M" || period === "2Y") ? "W" : "", // Set day as "W" for weekly periods
         currency1_currency2_dates: {
-          start_date: startDate,
-          end_date: endDate
+          start_date: startDateString,
+          end_date: endDateString
         },
         day_value: calculatedDayValue,
         currency1_USD_swap_points$: existingItem ? existingItem.currency1_USD_swap_points$ : randomCurrency1_USD_swap_points$,
@@ -349,9 +353,11 @@ export class AppFxforwardComponent implements OnInit {
 
     this.currency1 = currencyPair.toUpperCase().slice(0, 3);
     this.currency1 = this.currency1 ? this.currency1 : 'NA';
-    this.currency2 = currencyPair.toUpperCase().slice(3, 6);
+    this.currency2 = currencyPair.toUpperCase().slice(3, 6);;
     this.currency2 = this.currency2 ? this.currency2 : 'NA';
     this.currencyPair = this.currency1 + this.currency2;
+    this.ccy1FlagCode = this.currency1.toLowerCase().slice(0, 2);
+    this.ccy2FlagCode = this.currency2.toLowerCase().slice(0, 2);
   }
 
   public onDateChange(event: MatDatepickerInputEvent<Date>) {
