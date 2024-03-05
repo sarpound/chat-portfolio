@@ -12,7 +12,7 @@
           <img [src]="item.imageUrl" [alt]="item.name" (load)="item.loading = false" (error)="item.loading = false">
         </div>
         <div class="work-project-descript-wrap">
-          <span class="project-name">{{item.companyName }} Project</span>
+          <span class="project-name">{{  item.companyName }} Project</span>
           <div class="work-project-descript">
             <!-- อาจจะแก้ให้ใส่คำอธิบายจรงนี้ได้ด้วย ปัญหาข้อความยาวเกินกรอบเพราะ nowrap ใน parent ไว้ -->
             {{ item.name }}

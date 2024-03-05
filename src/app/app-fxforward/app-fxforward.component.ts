@@ -235,6 +235,7 @@ export class AppFxforwardComponent implements OnInit {
   public valueDate!: string;
   public immPeriods: string = 'No';
   public swapPoints: string = 'Linear';
+  public isNormalResulation: boolean = true;
   public oddPeriods: string = 'Yes';
   public longPeriods: string = 'No';
   public isCalFxForwardsActive: boolean = true;
@@ -247,6 +248,11 @@ export class AppFxforwardComponent implements OnInit {
   ngOnInit(): void {
     this.generateCurrencyPairData();
     this.calculateValueDate();
+
+    this.isNormalResulation = this.checkScreenWidth();
+    window.addEventListener('resize', () => {
+      this.isNormalResulation = this.checkScreenWidth();
+    });
   }
 
   private generateCurrencyPairData(): void {
@@ -372,5 +378,9 @@ export class AppFxforwardComponent implements OnInit {
     const year = date.getFullYear();
 
     return `${month}/${day}/${year}`;
+  }
+
+    private checkScreenWidth(): boolean {
+    return window.innerWidth >= 1050;
   }
 }

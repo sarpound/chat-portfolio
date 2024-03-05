@@ -1,25 +1,27 @@
-<div style="background-color: #151516; display: block;">
-  <div class="app-fxforward border-">
+<div style="background-color: #151516; min-height: 100%; min-width: 100%;">
+  <div class="app-fxforward">
     <div class="app-header d-flex align-items-center">
       <span [class]="'currency-flag fi fi-' + ccy1FlagCode"></span>
       <span [class]="'currency-flag fi fi-' + ccy2FlagCode"></span>
       <span class="font-500 ml-5"> {{ currency1 + "/" + currency2 }}</span>
     </div>
-    <div class="app-input-panel border-">
+    <div class="app-input-panel">
       <diV class="app-input-container">
-        <div class="app-input-currency border-">
-          <span>
+        <div class="app-input-currency">
+          <div>
             <input #currencyPairElement class="app-input mr-20" [value]="currencyPair" (blur)="handleCurrencyChanged()">
+          </div>
+          <div>
             <label class="mr-20">Calculate:</label>
             <button class="app-button" [class.app-button-active]="isCalFxForwardsActive" (click)="activateButton('calFxForwards')">FX Forwards</button>
             <button class="app-button" [class.app-button-active]="isCalRatesActive" (click)="activateButton('calRates')">Rates</button>
             <label class="ml-20 mr-20">From:</label>
             <button class="app-button" [class.app-button-active]="isFromFxForwardsActive" (click)="activateButton('fromFxForwards')">FX Forwards</button>
             <button class="app-button" [class.app-button-active]="isFromRatesActive" (click)="activateButton('fromRates')">Rates</button>
-          </span>
+          </div>
         </div>
-        <div class="app-input-date-container border-">
-          <div class="app-input-datte-container-left">
+        <div class="app-input-date-container" *ngIf="isNormalResulation">
+          <div class="app-input-date-container-left">
             <div class="app-input-date">
               <label class="mr-20 d-flex justify-center align-items-center">
                 Trade Date
@@ -72,12 +74,12 @@
         </div>
       </diV>
     </div>
-    <mat-expansion-panel togglePosition="before">
+    <mat-expansion-panel togglePosition="before" *ngIf="isNormalResulation">
       <mat-expansion-panel-header>
         Calculation Parameters
       </mat-expansion-panel-header>
       <ng-template matExpansionPanelContent>
-        <div class="app-calulation border-">
+        <div class="app-calulation">
           <div class="app-menu mt-5">
             <button class="app-button app-button-active">Market Inputs</button>
           </div>
@@ -117,18 +119,18 @@
         Standard Periods
       </mat-expansion-panel-header>
       <ng-template matExpansionPanelContent>
-        <table class="app-table border-">
+        <table class="app-table">
           <thead>
             <tr>
               <th scope="col"></th>
-              <th scope="col">Period</th>
+              <th scope="col" class="header">Period</th>
               <th scope="col"></th>
-              <th scope="col" colspan="2">{{ currency1 }}/{{ currency2 }} Dates</th>
+              <th scope="col" colspan="2" class="header">{{ currency1 }}/{{ currency2 }} Dates</th>
               <th scope="col">Day</th>
-              <th scope="col" colspan="2">{{ currency1 }}/USD Swap Points</th>
-              <th scope="col" colspan="2">{{ currency2 }}/USD Swap Points</th>
-              <th scope="col" colspan="2">{{ currency1 }}/{{ currency2 }} Swap Points</th>
-              <th scope="col" colspan="2">{{ currency1 }}/{{ currency2 }} Outrights</th>
+              <th scope="col" colspan="2" class="header">{{ currency1 }}/USD Swap Points</th>
+              <th scope="col" colspan="2" class="header">{{ currency2 }}/USD Swap Points</th>
+              <th scope="col" colspan="2" *ngIf="isNormalResulation" class="header">{{ currency1 }}/{{ currency2 }} Swap Points</th>
+              <th scope="col" colspan="2" *ngIf="isNormalResulation" class="header">{{ currency1 }}/{{ currency2 }} Outrights</th>
             </tr>
           </thead>
           <tbody>
@@ -136,31 +138,35 @@
               <td>
                 <input type="checkbox" class="checkbox">
               </td>
-              <td>{{ item.period }}</td>
+              <td class="period">{{ item.period }}</td>
               <td class="day-off-color">{{ item.day }}</td>
               <td class="market-color">{{ item.currency1_currency2_dates.start_date }}</td>
               <td class="market-color">{{ item.currency1_currency2_dates.end_date }}</td>
               <td class="market-color">{{ item.day_value }}</td>
-              <td><input class="app-input-value w-100" [value]="item.currency1_USD_swap_points$ | async"></td>
-              <td><input class="app-input-value" [value]="item.currency2_USD_swap_points$ | async" style="float: left;"></td>
-              <td><input class="app-input-value" [value]="item.currency1_USD_swap_points$ | async"></td>
-              <td><input class="app-input-value" [value]="item.currency2_USD_swap_points$ | async" style="float: left;"></td>
-              <td class="market-color">{{ item.currency1_currency2_swap_points$ | async }}</td>
-              <td class="market-color">{{ item.currency1_currency2_outrights$ | async }}</td>
-              <td class="market-color">{{ item.currency1_currency2_swap_points$ | async }}</td>
-              <td class="market-color">{{ item.currency1_currency2_outrights$ | async }}</td>
+              <td *ngIf="isNormalResulation"><input class="app-input-value w-100" [value]="item.currency1_USD_swap_points$ | async"></td>
+              <td *ngIf="isNormalResulation"><input class="app-input-value" [value]="item.currency2_USD_swap_points$ | async" style="float: left;"></td>
+              <td *ngIf="isNormalResulation"><input class="app-input-value" [value]="item.currency1_USD_swap_points$ | async"></td>
+              <td *ngIf="isNormalResulation"><input class="app-input-value" [value]="item.currency2_USD_swap_points$ | async" style="float: left;"></td>
+              <td class="market-color" *ngIf="!isNormalResulation">{{ item.currency1_USD_swap_points$ | async }}</td>
+              <td class="market-color" *ngIf="!isNormalResulation">{{ item.currency2_USD_swap_points$ | async }}</td>
+              <td class="market-color" *ngIf="!isNormalResulation">{{ item.currency1_USD_swap_points$ | async }}</td>
+              <td class="market-color" *ngIf="!isNormalResulation">{{ item.currency2_USD_swap_points$ | async }}</td>
+              <td class="market-color" *ngIf="isNormalResulation">{{ item.currency1_currency2_swap_points$ | async }}</td>
+              <td class="market-color" *ngIf="isNormalResulation">{{ item.currency1_currency2_outrights$ | async }}</td>
+              <td class="market-color" *ngIf="isNormalResulation">{{ item.currency1_currency2_swap_points$ | async }}</td>
+              <td class="market-color" *ngIf="isNormalResulation">{{ item.currency1_currency2_outrights$ | async }}</td>
             </tr>
           </tbody>
         </table>
       </ng-template>
     </mat-expansion-panel>
 
-    <mat-expansion-panel togglePosition="before" [expanded]="true">
+    <mat-expansion-panel togglePosition="before" [expanded]="true" *ngIf="isNormalResulation">
       <mat-expansion-panel-header>
         Broken Dates
       </mat-expansion-panel-header>
       <ng-template matExpansionPanelContent>
-        <table class="app-table border-">
+        <table class="app-table">
           <thead>
             <tr>
               <th scope="col"></th>

@@ -69,9 +69,9 @@ tbody {
 }
 
 .app-input-panel {
-  height: 120px;
   width: 80%;
   padding: 8px;
+  padding-bottom: 10px;
 }
 
 .app-input-date-container {
@@ -93,6 +93,16 @@ tbody {
 
 .app-calulation {
   width: 100%;
+}
+
+.app-input-currency {
+  display: flex;
+  flex-direction: row;
+}
+
+.app-input-currency > div {
+  display: flex;
+  align-items: center;
 }
 
 .app-table {
@@ -231,4 +241,56 @@ tbody {
 
 .even-row {
   background-color: #151516;
+}
+
+/* Adjust font sizes for smaller screens */
+@media only screen and (max-width: 1050px) {
+  .app-header,
+  .app-input,
+  .app-input-value,
+  .app-button,
+  .app-menu-items button,
+  .value-date,
+  .header,
+  .period,
+  .market-color,
+  .day-off-color {
+    font-size: 80%; /* Adjust font size as needed */
+  }
+
+  .app-input-panel {
+    width: 90%; /* Adjust width as needed */
+  }
+
+  .app-button {
+    padding: 3px; /* Adjust padding as needed */
+    font-size: 70%; /* Adjust font size as needed */
+  }
+
+  .app-input,
+  .app-input-value,
+  .date-input {
+    width: 100px; /* Adjust width as needed */
+  }
+
+  .checkbox {
+    width: 12px; /* Adjust width as needed */
+    height: 12px; /* Adjust height as needed */
+  }
+}
+
+@media screen and (min-width: 1050px) {
+  .app-fxforward {
+    zoom: 70% !important; /* Adjust the zoom level as needed */
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .app-input-currency {
+    flex-direction: column;
+  }
+
+  .app-input-currency > div {
+    padding: 5px;
+  }
 }
