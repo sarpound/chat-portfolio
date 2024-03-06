@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDatepickerInputEvent, MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -38,7 +38,7 @@ interface ICurrencyPair {
     MatIconModule,
     FormsModule ],
 })
-export class AppFxforwardComponent implements OnInit {
+export class AppFxforwardComponent implements OnInit, OnDestroy {
   @ViewChild('currencyPairElement') currencyPairElement!: ElementRef;
 
   public currencyPairData: ICurrencyPair[] = [
@@ -243,6 +243,8 @@ export class AppFxforwardComponent implements OnInit {
   public isFromFxForwardsActive: boolean = true;
   public isFromRatesActive: boolean = false;
 
+  private dataStreamInterval: any;
+
   constructor() {}
 
   ngOnInit(): void {
@@ -253,6 +255,10 @@ export class AppFxforwardComponent implements OnInit {
     window.addEventListener('resize', () => {
       this.isNormalResulation = this.checkScreenWidth();
     });
+  }
+
+  ngOnDestroy(): void {
+    clearInterval(this.dataStreamInterval);
   }
 
   private generateCurrencyPairData(): void {
@@ -310,7 +316,7 @@ export class AppFxforwardComponent implements OnInit {
     const randomStream = new BehaviorSubject<number>(initialRandomValue);
 
     // Emit a random value every second
-    interval(1000).subscribe(() => {
+    this.dataStreamInterval = interval(1000).subscribe(() => {
       const newValue = parseFloat((Math.random() * (max - min) + min).toFixed(decimalPlaces));
       randomStream.next(newValue);
     });
