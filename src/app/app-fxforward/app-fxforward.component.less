@@ -122,6 +122,12 @@ tbody {
   width: fit-content;
 }
 
+.app-flavor-button {
+  display: grid;
+  grid-template-columns: auto auto;
+  column-gap: 20px;
+}
+
 .currency-spot {
   display: flex;
   flex-direction: column;
@@ -276,6 +282,49 @@ tbody {
   .checkbox {
     width: 12px; /* Adjust width as needed */
     height: 12px; /* Adjust height as needed */
+  }
+}
+
+/* Adjust font sizes for smaller screens */
+@media only screen and (max-width: 350px) {
+  ::ng-deep {
+    .mat-expansion-panel-header {
+      height: 30px !important;
+    }
+
+  }
+
+  .app-header,
+  .app-input,
+  .app-input-value,
+  .app-button,
+  .app-menu-items button,
+  .value-date,
+  .header,
+  .period,
+  .market-color,
+  .day-off-color {
+    font-size: 70%; /* Adjust font size as needed */
+  }
+
+  .app-input-panel {
+    width: 80%; /* Adjust width as needed */
+  }
+
+  .app-button {
+    padding: 1.5px; /* Adjust padding as needed */
+    font-size: 60%; /* Adjust font size as needed */
+  }
+
+  .app-input,
+  .app-input-value,
+  .date-input {
+    width: 80px; /* Adjust width as needed */
+  }
+
+  .checkbox {
+    width: 10px; /* Adjust width as needed */
+    height: 10px; /* Adjust height as needed */
   }
 }
 

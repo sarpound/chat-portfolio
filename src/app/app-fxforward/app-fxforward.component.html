@@ -11,16 +11,20 @@
           <div>
             <input #currencyPairElement class="app-input mr-20" [value]="currencyPair" (blur)="handleCurrencyChanged()">
           </div>
-          <div>
-            <label class="mr-20">Calculate:</label>
-            <button class="app-button" [class.app-button-active]="isCalFxForwardsActive" (click)="activateButton('calFxForwards')">FX Forwards</button>
-            <button class="app-button" [class.app-button-active]="isCalRatesActive" (click)="activateButton('calRates')">Rates</button>
-            <label class="ml-20 mr-20">From:</label>
-            <button class="app-button" [class.app-button-active]="isFromFxForwardsActive" (click)="activateButton('fromFxForwards')">FX Forwards</button>
-            <button class="app-button" [class.app-button-active]="isFromRatesActive" (click)="activateButton('fromRates')">Rates</button>
+          <div class="app-flavor-button">
+            <div>
+              <label class="mr-20">Calculate:</label>
+              <button class="app-button" [class.app-button-active]="isCalFxForwardsActive" (click)="activateButton('calFxForwards')">FX Forwards</button>
+              <button class="app-button" [class.app-button-active]="isCalRatesActive" (click)="activateButton('calRates')">Rates</button>
+            </div>
+            <div>
+              <label class="mr-20">From:</label>
+              <button class="app-button" [class.app-button-active]="isFromFxForwardsActive" (click)="activateButton('fromFxForwards')">FX Forwards</button>
+              <button class="app-button" [class.app-button-active]="isFromRatesActive" (click)="activateButton('fromRates')">Rates</button>
+            </div>
           </div>
         </div>
-        <div class="app-input-date-container" *ngIf="isNormalResulation">
+        <div class="app-input-date-container">
           <div class="app-input-date-container-left">
             <div class="app-input-date">
               <label class="mr-20 d-flex justify-center align-items-center">
@@ -48,7 +52,7 @@
               </label>
             </div>
           </div>
-          <div class="app-input-date-container-right">
+          <div class="app-input-date-container-right" *ngIf="isNormalResulation">
             <div class="currency-spot">
             <label class="mb-10 font-500">{{ currency1 }}/USD Spot</label>
             <div class="d-flex flex-direction-row">
@@ -126,7 +130,7 @@
               <th scope="col" class="header">Period</th>
               <th scope="col"></th>
               <th scope="col" colspan="2" class="header">{{ currency1 }}/{{ currency2 }} Dates</th>
-              <th scope="col">Day</th>
+              <th scope="col" *ngIf="isNormalResulation">Day</th>
               <th scope="col" colspan="2" class="header">{{ currency1 }}/USD Swap Points</th>
               <th scope="col" colspan="2" class="header">{{ currency2 }}/USD Swap Points</th>
               <th scope="col" colspan="2" *ngIf="isNormalResulation" class="header">{{ currency1 }}/{{ currency2 }} Swap Points</th>
@@ -142,7 +146,7 @@
               <td class="day-off-color">{{ item.day }}</td>
               <td class="market-color">{{ item.currency1_currency2_dates.start_date }}</td>
               <td class="market-color">{{ item.currency1_currency2_dates.end_date }}</td>
-              <td class="market-color">{{ item.day_value }}</td>
+              <td class="market-color" *ngIf="isNormalResulation">{{ item.day_value }}</td>
               <td *ngIf="isNormalResulation"><input class="app-input-value w-100" [value]="item.currency1_USD_swap_points$ | async"></td>
               <td *ngIf="isNormalResulation"><input class="app-input-value" [value]="item.currency2_USD_swap_points$ | async" style="float: left;"></td>
               <td *ngIf="isNormalResulation"><input class="app-input-value" [value]="item.currency1_USD_swap_points$ | async"></td>
