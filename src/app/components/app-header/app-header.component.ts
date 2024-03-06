@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AppModel } from 'src/app/interfaces/app.interface';
 import { ModelService } from 'src/app/services/model.service';
@@ -17,6 +17,7 @@ export class AppHeaderComponent implements OnInit {
   private appModel$!: Observable<AppModel>;
 
   constructor(
+    private activatedRoute: ActivatedRoute,
     private modelServices: ModelService,
     private router: Router
   ) {
@@ -31,10 +32,19 @@ export class AppHeaderComponent implements OnInit {
   }
 
   onBackClick(): void {
-    this.modelServices.updateModel({ isChatPanelSelect: false });
+    if (this.isChatRoute) {
+      this.modelServices.updateModel({ isChatPanelSelect: false });
+    }
+    else if (this.isWorkProjectRoute) {
+      this.router.navigateByUrl('/work')
+    }
   }
 
   get isChatRoute(): boolean {
     return this.router.url === '/';
+  }
+
+  get isWorkProjectRoute(): boolean {
+    return this.activatedRoute.snapshot.queryParams['projects'];
   }
 }

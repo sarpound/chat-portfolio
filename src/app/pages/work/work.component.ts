@@ -14,7 +14,7 @@ export class WorkComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
-      if (params['project'] === 'fxforwards') {
+      if (params['projects'] === 'fxforwards') {
         this.showFXForwards = true;
       } else {
         this.showFXForwards = false;

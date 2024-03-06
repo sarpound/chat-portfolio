@@ -12,6 +12,7 @@ export interface Iwork {
 
 export interface IworkProject {
   name: string;
+  routeName: string;
   companyName: string;
   description: string;
   techStack?: string[];

@@ -1,8 +1,8 @@
 <div class="app-header">
   <apps-button
-    *ngIf="isPortraitView && isChatPanelSelect && isChatRoute"
+    *ngIf="(isPortraitView && isChatPanelSelect && isChatRoute) || isWorkProjectRoute"
     class="d-flex ml-10 cursor-pointer"
-    [icon]="'arrow_back_ios'"
+    icon="arrow_back_ios"
     (click)="onBackClick()"
   />
   <div *ngIf="!isPortraitView || (isPortraitView && !isChatPanelSelect) || !isChatRoute"></div>

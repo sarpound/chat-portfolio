@@ -10,7 +10,7 @@ export class AppBarComponent {
 
   constructor(private router: Router) {}
 
-  isActive(route: string) {
+  public isActive(route: string) {
     return this.router.isActive(route, true);
   }
 }
