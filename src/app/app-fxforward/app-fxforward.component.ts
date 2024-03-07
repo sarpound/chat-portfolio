@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDatepickerInputEvent, MatDatepickerModule } from '@angular/material/datepicker';
@@ -22,6 +22,7 @@ interface ICurrencyPair {
   currency2_USD_swap_points$: Observable<number>;
   currency1_currency2_swap_points$: Observable<number>;
   currency1_currency2_outrights$: Observable<number>;
+  checked?: boolean;
 }
 
 @Component({
@@ -37,6 +38,7 @@ interface ICurrencyPair {
     MatInputModule,
     MatIconModule,
     FormsModule ],
+    providers: [ DatePipe ]
 })
 export class AppFxforwardComponent implements OnInit, OnDestroy {
   @ViewChild('currencyPairElement') currencyPairElement!: ElementRef;
@@ -53,7 +55,8 @@ export class AppFxforwardComponent implements OnInit, OnDestroy {
       "currency1_USD_swap_points$": this.generateRandomDataStream(),
       "currency2_USD_swap_points$": this.generateRandomDataStream(),
       "currency1_currency2_swap_points$": this.generateRandomDataStream(),
-      "currency1_currency2_outrights$": this.generateRandomDataStream()
+      "currency1_currency2_outrights$": this.generateRandomDataStream(),
+      "checked": false
     },
     {
       "period": "TN",
@@ -66,7 +69,8 @@ export class AppFxforwardComponent implements OnInit, OnDestroy {
       "currency1_USD_swap_points$": this.generateRandomDataStream(),
       "currency2_USD_swap_points$": this.generateRandomDataStream(),
       "currency1_currency2_swap_points$": this.generateRandomDataStream(),
-      "currency1_currency2_outrights$": this.generateRandomDataStream()
+      "currency1_currency2_outrights$": this.generateRandomDataStream(),
+      "checked": false
     },
     {
       "period": "SN",
@@ -79,7 +83,8 @@ export class AppFxforwardComponent implements OnInit, OnDestroy {
       "currency1_USD_swap_points$": this.generateRandomDataStream(),
       "currency2_USD_swap_points$": this.generateRandomDataStream(),
       "currency1_currency2_swap_points$": this.generateRandomDataStream(),
-      "currency1_currency2_outrights$": this.generateRandomDataStream()
+      "currency1_currency2_outrights$": this.generateRandomDataStream(),
+      "checked": false
     },
     {
       "period": "SW",
@@ -92,7 +97,8 @@ export class AppFxforwardComponent implements OnInit, OnDestroy {
       "currency1_USD_swap_points$": this.generateRandomDataStream(),
       "currency2_USD_swap_points$": this.generateRandomDataStream(),
       "currency1_currency2_swap_points$": this.generateRandomDataStream(),
-      "currency1_currency2_outrights$": this.generateRandomDataStream()
+      "currency1_currency2_outrights$": this.generateRandomDataStream(),
+      "checked": false
     },
     {
       "period": "1W",
@@ -105,7 +111,8 @@ export class AppFxforwardComponent implements OnInit, OnDestroy {
       "currency1_USD_swap_points$": this.generateRandomDataStream(),
       "currency2_USD_swap_points$": this.generateRandomDataStream(),
       "currency1_currency2_swap_points$": this.generateRandomDataStream(),
-      "currency1_currency2_outrights$": this.generateRandomDataStream()
+      "currency1_currency2_outrights$": this.generateRandomDataStream(),
+      "checked": false
     },
     {
       "period": "2W",
@@ -118,7 +125,8 @@ export class AppFxforwardComponent implements OnInit, OnDestroy {
       "currency1_USD_swap_points$": this.generateRandomDataStream(),
       "currency2_USD_swap_points$": this.generateRandomDataStream(),
       "currency1_currency2_swap_points$": this.generateRandomDataStream(),
-      "currency1_currency2_outrights$": this.generateRandomDataStream()
+      "currency1_currency2_outrights$": this.generateRandomDataStream(),
+      "checked": false
     },
     {
       "period": "3W",
@@ -131,7 +139,8 @@ export class AppFxforwardComponent implements OnInit, OnDestroy {
       "currency1_USD_swap_points$": this.generateRandomDataStream(),
       "currency2_USD_swap_points$": this.generateRandomDataStream(),
       "currency1_currency2_swap_points$": this.generateRandomDataStream(),
-      "currency1_currency2_outrights$": this.generateRandomDataStream()
+      "currency1_currency2_outrights$": this.generateRandomDataStream(),
+      "checked": false
     },
     {
       "period": "1M",
@@ -144,7 +153,8 @@ export class AppFxforwardComponent implements OnInit, OnDestroy {
       "currency1_USD_swap_points$": this.generateRandomDataStream(),
       "currency2_USD_swap_points$": this.generateRandomDataStream(),
       "currency1_currency2_swap_points$": this.generateRandomDataStream(),
-      "currency1_currency2_outrights$": this.generateRandomDataStream()
+      "currency1_currency2_outrights$": this.generateRandomDataStream(),
+      "checked": false
     },
     {
       "period": "2M",
@@ -157,7 +167,8 @@ export class AppFxforwardComponent implements OnInit, OnDestroy {
       "currency1_USD_swap_points$": this.generateRandomDataStream(),
       "currency2_USD_swap_points$": this.generateRandomDataStream(),
       "currency1_currency2_swap_points$": this.generateRandomDataStream(),
-      "currency1_currency2_outrights$": this.generateRandomDataStream()
+      "currency1_currency2_outrights$": this.generateRandomDataStream(),
+      "checked": false
     },
     {
       "period": "3M",
@@ -170,7 +181,8 @@ export class AppFxforwardComponent implements OnInit, OnDestroy {
       "currency1_USD_swap_points$": this.generateRandomDataStream(),
       "currency2_USD_swap_points$": this.generateRandomDataStream(),
       "currency1_currency2_swap_points$": this.generateRandomDataStream(),
-      "currency1_currency2_outrights$": this.generateRandomDataStream()
+      "currency1_currency2_outrights$": this.generateRandomDataStream(),
+      "checked": false
     },
     {
       "period": "6M",
@@ -183,7 +195,8 @@ export class AppFxforwardComponent implements OnInit, OnDestroy {
       "currency1_USD_swap_points$": this.generateRandomDataStream(),
       "currency2_USD_swap_points$": this.generateRandomDataStream(),
       "currency1_currency2_swap_points$": this.generateRandomDataStream(),
-      "currency1_currency2_outrights$": this.generateRandomDataStream()
+      "currency1_currency2_outrights$": this.generateRandomDataStream(),
+      "checked": false
     },
     {
       "period": "9M",
@@ -196,7 +209,8 @@ export class AppFxforwardComponent implements OnInit, OnDestroy {
       "currency1_USD_swap_points$": this.generateRandomDataStream(),
       "currency2_USD_swap_points$": this.generateRandomDataStream(),
       "currency1_currency2_swap_points$": this.generateRandomDataStream(),
-      "currency1_currency2_outrights$": this.generateRandomDataStream()
+      "currency1_currency2_outrights$": this.generateRandomDataStream(),
+      "checked": false
     },
     {
       "period": "1Y",
@@ -209,7 +223,8 @@ export class AppFxforwardComponent implements OnInit, OnDestroy {
       "currency1_USD_swap_points$": this.generateRandomDataStream(),
       "currency2_USD_swap_points$": this.generateRandomDataStream(),
       "currency1_currency2_swap_points$": this.generateRandomDataStream(),
-      "currency1_currency2_outrights$": this.generateRandomDataStream()
+      "currency1_currency2_outrights$": this.generateRandomDataStream(),
+      "checked": false
     },
     {
       "period": "2Y",
@@ -222,7 +237,8 @@ export class AppFxforwardComponent implements OnInit, OnDestroy {
       "currency1_USD_swap_points$": this.generateRandomDataStream(),
       "currency2_USD_swap_points$": this.generateRandomDataStream(),
       "currency1_currency2_swap_points$": this.generateRandomDataStream(),
-      "currency1_currency2_outrights$": this.generateRandomDataStream()
+      "currency1_currency2_outrights$": this.generateRandomDataStream(),
+      "checked": false
     }
   ];
 
@@ -242,10 +258,12 @@ export class AppFxforwardComponent implements OnInit, OnDestroy {
   public isCalRatesActive: boolean = false;
   public isFromFxForwardsActive: boolean = true;
   public isFromRatesActive: boolean = false;
+  public currentTime!: string;
 
+  private timer: any;
   private dataStreamInterval: any;
 
-  constructor() {}
+  constructor(private datePipe: DatePipe) {}
 
   ngOnInit(): void {
     this.generateCurrencyPairData();
@@ -255,10 +273,16 @@ export class AppFxforwardComponent implements OnInit, OnDestroy {
     window.addEventListener('resize', () => {
       this.isNormalResulation = this.checkScreenWidth();
     });
+
+    this.updateCurrentTime();
+    this.timer = setInterval(() => {
+      this.updateCurrentTime();
+    }, 1000);
   }
 
   ngOnDestroy(): void {
     clearInterval(this.dataStreamInterval);
+    clearInterval(this.timer);
   }
 
   private generateCurrencyPairData(): void {
@@ -388,5 +412,10 @@ export class AppFxforwardComponent implements OnInit, OnDestroy {
 
     private checkScreenWidth(): boolean {
     return window.innerWidth >= 1050;
+  }
+
+  private updateCurrentTime() {
+    const now = new Date();
+    this.currentTime = this.datePipe.transform(now, 'HH:mm:ss') || '00:00:00';
   }
 }
