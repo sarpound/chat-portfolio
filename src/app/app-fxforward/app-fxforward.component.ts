@@ -410,7 +410,7 @@ export class AppFxforwardComponent implements OnInit, OnDestroy {
     return `${month}/${day}/${year}`;
   }
 
-    private checkScreenWidth(): boolean {
+  private checkScreenWidth(): boolean {
     return window.innerWidth >= 1050;
   }
 
