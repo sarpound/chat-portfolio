@@ -1,5 +1,6 @@
 <div style="background-color: #151516; min-height: 100%; min-width: 100%;">
   <div class="app-fxforward">
+    <mat-progress-bar [value]="progressValue"></mat-progress-bar>
     <div class="app-header">
       <div class="d-flex align-items-center">
         <span [class]="'currency-flag-dark currency-flag fi fi-' + ccy1FlagCode"></span>
@@ -7,7 +8,7 @@
         <span class="font-500 ml-5"> {{ currency1 + "/" + currency2 }}</span>
       </div>
       <div class="info">
-        <div class="pulse">
+        <div class="pulse" *ngIf="false">
           <mat-icon fontIcon="info" style="z-index: 1000px; color: #fff;"></mat-icon>
         </div>
       </div>

@@ -6,7 +6,7 @@ export const GREETING_MESSAGE = [
   {
     userId: 'receiver',
     message:
-      "Welcome to my portfolio chatbot! I'm here to help you learn more about my skills, experience, and hobbies, and I'd be happy to answer any questions you have. To get started, here are some recommended questions that you can choose from:",
+      "Welcome to my portfolio chatbot! I'm here to help you learn more about my skills, experience, and I'd be happy to answer any questions you have. To get started, here are some recommended questions that you can choose from:",
   },
   {
     userId: 'receiver',

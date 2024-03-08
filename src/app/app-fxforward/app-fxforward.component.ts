@@ -5,6 +5,7 @@ import { MatDatepickerInputEvent, MatDatepickerModule } from '@angular/material/
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { FormsModule } from '@angular/forms';
 
 import { BehaviorSubject, interval } from 'rxjs';
@@ -37,6 +38,7 @@ interface ICurrencyPair {
     MatNativeDateModule,
     MatInputModule,
     MatIconModule,
+    MatProgressBarModule,
     FormsModule ],
     providers: [ DatePipe ]
 })
@@ -259,6 +261,7 @@ export class AppFxforwardComponent implements OnInit, OnDestroy {
   public isFromFxForwardsActive: boolean = true;
   public isFromRatesActive: boolean = false;
   public currentTime!: string;
+  public progressValue: number = 0;
 
   private timer: any;
   private dataStreamInterval: any;
@@ -369,6 +372,8 @@ export class AppFxforwardComponent implements OnInit, OnDestroy {
   }
 
   public activateButton(buttonType: string) {
+    this.simulateProgress();
+
     if (buttonType === 'calFxForwards') {
       this.isCalFxForwardsActive = true;
       this.isCalRatesActive = false;
@@ -385,7 +390,11 @@ export class AppFxforwardComponent implements OnInit, OnDestroy {
   }
 
   public handleCurrencyChanged(): void {
-    const currencyPair: string = this.currencyPairElement.nativeElement.value;
+    const currencyPair: string = this.currencyPairElement.nativeElement.value
+
+    if (currencyPair.toUpperCase() !== this.currency1 + this.currency2) {
+      this.simulateProgress();
+    }
 
     this.currency1 = currencyPair.toUpperCase().slice(0, 3);
     this.currency1 = this.currency1 ? this.currency1 : 'NA';
@@ -398,6 +407,7 @@ export class AppFxforwardComponent implements OnInit, OnDestroy {
 
   public onDateChange(event: MatDatepickerInputEvent<Date>) {
     this.tradeDate = event.value!;
+    this.simulateProgress();
     this.calculateValueDate();
     this.generateCurrencyPairData();
   }
@@ -417,5 +427,18 @@ export class AppFxforwardComponent implements OnInit, OnDestroy {
   private updateCurrentTime() {
     const now = new Date();
     this.currentTime = this.datePipe.transform(now, 'HH:mm:ss') || '00:00:00';
+  }
+
+  private simulateProgress() {
+    const interval = setInterval(() => {
+      // Increment the progress value
+      this.progressValue += 20;
+
+      // If progress reaches 100, clear the interval
+      if (this.progressValue >= 120) {
+        this.progressValue = 0;
+        clearInterval(interval);
+      }
+    }, 1000); // Adjust the interval duration as needed
   }
 }
