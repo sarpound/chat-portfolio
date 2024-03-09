@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 
 import { BehaviorSubject, interval } from 'rxjs';
 import { Observable } from 'rxjs';
+import { AppCardComponent } from '../components/app-card/app-card.component';
 
 interface ICurrencyPair {
   period: string;
@@ -39,7 +40,9 @@ interface ICurrencyPair {
     MatInputModule,
     MatIconModule,
     MatProgressBarModule,
-    FormsModule ],
+    FormsModule,
+    AppCardComponent
+  ],
     providers: [ DatePipe ]
 })
 export class AppFxforwardComponent implements OnInit, OnDestroy {
@@ -260,6 +263,7 @@ export class AppFxforwardComponent implements OnInit, OnDestroy {
   public isCalRatesActive: boolean = false;
   public isFromFxForwardsActive: boolean = true;
   public isFromRatesActive: boolean = false;
+  public isOpenInfo: boolean = false;
   public currentTime!: string;
   public progressValue: number = 0;
 
@@ -405,11 +409,33 @@ export class AppFxforwardComponent implements OnInit, OnDestroy {
     this.ccy2FlagCode = this.currency2.toLowerCase().slice(0, 2);
   }
 
-  public onDateChange(event: MatDatepickerInputEvent<Date>) {
+  public onDateChange(event: MatDatepickerInputEvent<Date>): void {
     this.tradeDate = event.value!;
     this.simulateProgress();
     this.calculateValueDate();
     this.generateCurrencyPairData();
+  }
+
+  public onCalParamChanged(buttonType?: string): void {
+    this.simulateProgress();
+
+    if (buttonType === 'immPeriods') {
+      this.immPeriods = this.immPeriods === 'No' ? 'Yes' : 'No';
+    }
+    else if (buttonType === 'oddPeriods') {
+      this.oddPeriods = this.oddPeriods === 'No' ? 'Yes' : 'No';
+    }
+    else if (buttonType === 'longPeriods') {
+      this.longPeriods = this.longPeriods === 'No' ? 'Yes' : 'No';
+    }
+  }
+
+  public toggleCard() {
+    this.isOpenInfo = !this.isOpenInfo;
+  }
+
+  handleCardClose() {
+    this.isOpenInfo = false;
   }
 
   private formatDate(date: Date): string {
@@ -432,13 +458,13 @@ export class AppFxforwardComponent implements OnInit, OnDestroy {
   private simulateProgress() {
     const interval = setInterval(() => {
       // Increment the progress value
-      this.progressValue += 20;
+      this.progressValue += 30;
 
       // If progress reaches 100, clear the interval
-      if (this.progressValue >= 120) {
+      if (this.progressValue >= 140) {
         this.progressValue = 0;
         clearInterval(interval);
       }
-    }, 1000); // Adjust the interval duration as needed
+    }, 800); // Adjust the interval duration as needed
   }
 }

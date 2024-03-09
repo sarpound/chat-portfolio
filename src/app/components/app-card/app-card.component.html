@@ -1,0 +1,11 @@
+<mat-card class="app-card" *ngIf="open">
+  <div class="close" (click)="closeCard()">X</div>
+  <img alt="img-card" class="image" src="../../../assets/images/info.jpg"/>
+  <mat-card-header>
+    <mat-card-title>{{ title }}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <p>Description: {{ description }}</p>
+    <label>Tech Stack: {{ techStack }}</label>
+  </mat-card-content>
+</mat-card>

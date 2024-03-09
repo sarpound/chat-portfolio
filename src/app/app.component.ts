@@ -16,7 +16,7 @@ export class AppComponent {
     private analytics: AngularFireAnalytics,
     private modelServices: ModelService
   ) {
-    this.analytics.logEvent('app_open', {"component": "AppComponent"});
+    this.analytics.logEvent('app_open', { "component": "AppComponent" });
   }
 
   @HostListener('window:resize')

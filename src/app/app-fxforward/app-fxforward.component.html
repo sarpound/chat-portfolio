@@ -7,8 +7,8 @@
         <span [class]="'currency-flag-soft currency-flag fi fi-' + ccy2FlagCode"></span>
         <span class="font-500 ml-5"> {{ currency1 + "/" + currency2 }}</span>
       </div>
-      <div class="info">
-        <div class="pulse" *ngIf="false">
+      <div class="info" (click)="toggleCard()">
+        <div class="pulse">
           <mat-icon fontIcon="info" style="z-index: 1000px; color: #fff;"></mat-icon>
         </div>
       </div>
@@ -17,7 +17,7 @@
       <diV class="app-input-container">
         <div class="app-input-currency">
           <div>
-            <input #currencyPairElement class="app-input mr-20" [value]="currencyPair" (blur)="handleCurrencyChanged()" (keydown.enter)="handleCurrencyChanged()">
+            <input #currencyPairElement title="Currency Pair code (ISO 4217) eg: EURGBP (XXXYYY)" class="app-input mr-20" [value]="currencyPair" (blur)="handleCurrencyChanged()" (keydown.enter)="handleCurrencyChanged()">
           </div>
           <div class="app-flavor-button">
             <div>
@@ -64,22 +64,22 @@
             <div class="currency-spot">
             <label class="mb-10 font-500">{{ currency1 }}/USD Spot</label>
             <div class="d-flex flex-direction-row">
-              <input class="app-input-value" [value]="currencyPairData[0].currency1_USD_swap_points$ | async">
-              <input class="app-input-value" [value]="currencyPairData[0].currency2_USD_swap_points$ | async">
+              <input title="Bid" class="app-input-value" [value]="currencyPairData[0].currency1_USD_swap_points$ | async">
+              <input title="Ask" class="app-input-value" [value]="currencyPairData[0].currency2_USD_swap_points$ | async">
             </div>
             </div>
             <div class="currency-spot">
               <label class="mb-10 font-500">{{ currency2 }}/USD Spot</label>
               <div class="d-flex flex-direction-row">
-                <input class="app-input-value" [value]="currencyPairData[0].currency2_USD_swap_points$ | async">
-                <input class="app-input-value" [value]="currencyPairData[0].currency1_USD_swap_points$ | async">
+                <input title="Bid" class="app-input-value" [value]="currencyPairData[0].currency2_USD_swap_points$ | async">
+                <input title="Ask" class="app-input-value" [value]="currencyPairData[0].currency1_USD_swap_points$ | async">
               </div>
             </div>
             <div class="currency-spot">
               <label class="mb-10 font-500">{{ currency1 }}/{{ currency2 }} Spot</label>
               <div class="d-flex flex-direction-row">
-                <input class="app-input-value" [value]="currencyPairData[0].currency1_currency2_swap_points$ | async">
-                <input class="app-input-value" [value]="currencyPairData[0].currency1_currency2_outrights$ | async">
+                <input title="Bid" class="app-input-value" [value]="currencyPairData[0].currency1_currency2_swap_points$ | async">
+                <input title="Ask" class="app-input-value" [value]="currencyPairData[0].currency1_currency2_outrights$ | async">
               </div>
             </div>
           </div>
@@ -98,19 +98,19 @@
           <div class="app-menu-item-container">
             <div class="app-menu-items">
               <label>Reference</label>
-              <button class="app-button">USD</button>
+              <button class="app-button" (click)="onCalParamChanged()">USD</button>
             </div>
             <div class="app-menu-items">
               <label>IMM Periods</label>
-              <button class="app-button" (click)="immPeriods = (immPeriods === 'No') ? 'Yes' : 'No'">{{ immPeriods }}</button>
+              <button class="app-button" (click)="onCalParamChanged('immPeriods')">{{ immPeriods }}</button>
             </div>
             <div class="app-menu-items">
               <label>Swap Points Interpolation</label>
-              <button class="app-button">Linear</button>
+              <button class="app-button" (click)="onCalParamChanged()">Linear</button>
             </div>
             <div class="app-menu-items">
               <label>Odd Periods</label>
-              <button class="app-button" (click)="oddPeriods = (oddPeriods === 'No') ? 'Yes' : 'No'">{{ oddPeriods }}</button>
+              <button class="app-button" (click)="onCalParamChanged('oddPeriods')">{{ oddPeriods }}</button>
             </div>
             <div class="app-menu-items">
               <label>Roll-Over</label>
@@ -119,7 +119,7 @@
             <div class="app-menu-items"></div>
             <div class="app-menu-items">
               <label>Long Periods</label>
-              <button class="app-button" (click)="longPeriods = (longPeriods === 'No') ? 'Yes' : 'No'">{{ longPeriods }}</button>
+              <button class="app-button" (click)="onCalParamChanged('longPeriods')">{{ longPeriods }}</button>
             </div>
           </div>
         </div>
@@ -148,17 +148,17 @@
           <tbody>
             <tr *ngFor="let item of currencyPairData; let i = index" [ngClass]="{ 'odd-row': i % 2 !== 0, 'even-row': i % 2 === 0 }">
               <td>
-                <input type="checkbox" class="checkbox">
+                <input title="Interpolation" type="checkbox" class="checkbox">
               </td>
               <td class="period">{{ item.period }}</td>
               <td class="day-off-color">{{ item.day }}</td>
               <td class="market-color">{{ item.currency1_currency2_dates.start_date | date: 'd MMM y' }}</td>
               <td class="market-color">{{ item.currency1_currency2_dates.end_date | date: 'd MMM y' }}</td>
               <td class="market-color" *ngIf="isNormalResulation">{{ item.day_value }}</td>
-              <td *ngIf="isNormalResulation"><input class="app-input-value w-100" [value]="item.currency1_USD_swap_points$ | async"></td>
-              <td *ngIf="isNormalResulation"><input class="app-input-value" [value]="item.currency2_USD_swap_points$ | async" style="float: left;"></td>
-              <td *ngIf="isNormalResulation"><input class="app-input-value" [value]="item.currency1_USD_swap_points$ | async"></td>
-              <td *ngIf="isNormalResulation"><input class="app-input-value" [value]="item.currency2_USD_swap_points$ | async" style="float: left;"></td>
+              <td *ngIf="isNormalResulation"><input title="Bid" class="app-input-value w-100" [value]="item.currency1_USD_swap_points$ | async"></td>
+              <td *ngIf="isNormalResulation"><input title="Ask" class="app-input-value" [value]="item.currency2_USD_swap_points$ | async" style="float: left;"></td>
+              <td *ngIf="isNormalResulation"><input title="Bid" class="app-input-value" [value]="item.currency1_USD_swap_points$ | async"></td>
+              <td *ngIf="isNormalResulation"><input title="Ask" class="app-input-value" [value]="item.currency2_USD_swap_points$ | async" style="float: left;"></td>
               <td class="market-color" *ngIf="!isNormalResulation">{{ item.currency1_USD_swap_points$ | async }}</td>
               <td class="market-color" *ngIf="!isNormalResulation">{{ item.currency2_USD_swap_points$ | async }}</td>
               <td class="market-color" *ngIf="!isNormalResulation">{{ item.currency1_USD_swap_points$ | async }}</td>
@@ -207,10 +207,10 @@
               </td>
               <td class="market-color">{{ item.day_value }}</td>
               <td class="day-off-color">{{ item.day }}</td>
-              <td><input class="app-input-value w-100" [value]="item.currency1_USD_swap_points$ | async"></td>
-              <td><input class="app-input-value" [value]="item.currency2_USD_swap_points$ | async" style="float: left;"></td>
-              <td><input class="app-input-value" [value]="item.currency1_USD_swap_points$ | async"></td>
-              <td><input class="app-input-value" [value]="item.currency2_USD_swap_points$ | async" style="float: left;"></td>
+              <td><input title="Bid" class="app-input-value w-100" [value]="item.currency1_USD_swap_points$ | async"></td>
+              <td><input title="Ask" class="app-input-value" [value]="item.currency2_USD_swap_points$ | async" style="float: left;"></td>
+              <td><input title="Bid" class="app-input-value" [value]="item.currency1_USD_swap_points$ | async"></td>
+              <td><input title="Ask" class="app-input-value" [value]="item.currency2_USD_swap_points$ | async" style="float: left;"></td>
               <td class="market-color">{{ item.currency1_currency2_swap_points$ | async }}</td>
               <td class="market-color">{{ item.currency1_currency2_outrights$ | async }}</td>
               <td class="market-color">{{ item.currency1_currency2_swap_points$ | async }}</td>
@@ -223,5 +223,15 @@
     <div class="app-bottom">
       updated: {{ currentTime }}
     </div>
+  </div>
+  <div [class.back-drop]="isOpenInfo">
+    <app-card
+      class="info-card"
+      [title]="'FXForwards'"
+      [description]="'FX Forwards Calculator is powerful one-stop-shop for FX forwards and deposit related calculations. Calculate and display cross swap points and outrights in real time for any deliverable currency or cross out to 10 years.'"
+      [techStack]="'Angular, RxJs and GitLab'"
+      [open]="isOpenInfo"
+      (close)="handleCardClose()"
+    />
   </div>
 </div>
