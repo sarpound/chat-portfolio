@@ -11,19 +11,18 @@
     <li routerLinkActive="active">
       <apps-button
         routerLink="/work"
-        [label]="'work'"
+        [label]="'Work'"
         [icon]="'work_history'"
         [isActive]="isActive('/work') || isActive('/work?projects=fxforwards')"
       />
     </li>
-
-    <!-- <li routerLinkActive="active">
+    <li routerLinkActive="active">
       <apps-button
-        routerLink="/project"
-        [label]="'project'"
-        [icon]="'handyman'"
-        [isActive]="isActive('/project')"
+        routerLink="/profile"
+        [label]="'Profile'"
+        [icon]="'face'"
+        [isActive]="isActive('/profile')"
       />
-    </li> -->
+    </li>
   </ul>
 </nav>

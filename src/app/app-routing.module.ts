@@ -2,12 +2,12 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ChatComponent } from './pages/chat/chat.component';
 import { WorkComponent } from './pages/work/work.component';
-import { ProjectComponent } from './pages/project/project.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 const routes: Routes = [
   { path: '', component: ChatComponent },
   { path: 'work', component: WorkComponent },
-  { path: 'project', component: ProjectComponent }
+  { path: 'profile', component: ProfileComponent }
 ];
 
 @NgModule({
