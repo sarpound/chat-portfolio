@@ -151,7 +151,7 @@
                 <input title="Interpolation" type="checkbox" class="checkbox">
               </td>
               <td class="period">{{ item.period }}</td>
-              <td class="day-off-color">{{ item.day }}</td>
+              <td class="day-off-color" style="text-align: center;">{{ item.day }}</td>
               <td class="market-color">{{ item.currency1_currency2_dates.start_date | date: 'd MMM y' }}</td>
               <td class="market-color">{{ item.currency1_currency2_dates.end_date | date: 'd MMM y' }}</td>
               <td class="market-color" *ngIf="isNormalResulation">{{ item.day_value }}</td>
@@ -206,8 +206,8 @@
                   <mat-icon fontIcon="today" style="position: relative; right: 25px; top: 8px;"></mat-icon>
               </td>
               <td class="market-color">{{ item.day_value }}</td>
-              <td class="day-off-color">{{ item.day }}</td>
-              <td><input title="Bid" class="app-input-value w-100" [value]="item.currency1_USD_swap_points$ | async"></td>
+              <td class="day-off-color" style="text-align: center;">{{ item.day }}</td>
+              <td><input title="Bid" class="app-input-value" [value]="item.currency1_USD_swap_points$ | async"></td>
               <td><input title="Ask" class="app-input-value" [value]="item.currency2_USD_swap_points$ | async" style="float: left;"></td>
               <td><input title="Bid" class="app-input-value" [value]="item.currency1_USD_swap_points$ | async"></td>
               <td><input title="Ask" class="app-input-value" [value]="item.currency2_USD_swap_points$ | async" style="float: left;"></td>
