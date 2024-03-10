@@ -8,8 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { FormsModule } from '@angular/forms';
 
-import { BehaviorSubject, interval } from 'rxjs';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, interval } from 'rxjs';
 import { AppCardComponent } from '../components/app-card/app-card.component';
 
 interface ICurrencyPair {

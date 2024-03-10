@@ -8,7 +8,7 @@
           [isActive]="isActive('/')"
         />
     </li>
-    <li  class="fl-1" routerLinkActive="active">
+    <li class="fl-1" routerLinkActive="active">
       <apps-button
         routerLink="/work"
         [label]="'work'"
@@ -16,13 +16,13 @@
         [isActive]="isActive('/work') || isActive('/work?projects=fxforwards')"
       />
     </li>
-    <!-- <li  class="fl-1" routerLinkActive="active">
+    <li class="fl-1" routerLinkActive="active">
       <apps-button
-        routerLink="/project"
-        [label]="'project'"
-        [icon]="'handyman'"
-        [isActive]="isActive('/project')"
+        routerLink="/profile"
+        [label]="'Profile'"
+        [icon]="'face'"
+        [isActive]="isActive('/profile')"
       />
-    </li> -->
+    </li>
   </ul>
 </nav>

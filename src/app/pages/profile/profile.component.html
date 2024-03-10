@@ -1,1 +1,33 @@
-<p>profile works!</p>
+<div class="main-content justify-center align-items-center">
+  <div class="container">
+    <div class="profile">
+      <div class="profile-container">
+        <div [class]="isPortraitView ? 'profile-deatils-100' : 'profile-deatils-50'">
+          <div class="header">
+            <h1>Hi! I'm <label>Soravit.</label></h1>
+          </div>
+          <div class="content">
+            I am passionate about innovative technology and design. I am an experienced software engineer. I have played a key role in developing and maintaining a financial platform for Refinitiv, an LSEG (London Stock Exchange Group) company in Thailand. My responsibilities included creating new features, fixing bugs, and conducting unit tests to ensure smooth operation. Additionally, I contributed to code reviews to enhance performance, readability, and scalability, while also validating data requests and responses from backend systems.
+          </div>
+          <div class="madimi-one-regular contact">
+            <div class="contact-item" (click)="openLink('https://drive.google.com/file/d/13EzAdy3C0BKUPcFCCPmOGblAWS24NfXH/view?usp=sharing')">
+              Resume
+            </div>
+            <div class="contact-item" (click)="openLink('https://github.com/sarpound')">
+              GitHub
+            </div>
+            <div class="contact-item" (click)="openLink('https://www.linkedin.com/in/soravit-varanich/')">
+              LinkedIn
+            </div>
+            <div class="contact-item" (click)="openLink('mailto:soravit.var@hotmail.com')">
+              Mail
+            </div>
+          </div>
+        </div>
+        <div class="profile-img" *ngIf="!isPortraitView">
+          <img src="../../../assets/images/profile-me.jpeg" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

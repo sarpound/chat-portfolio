@@ -9,8 +9,8 @@ import { ModelService } from 'src/app/services/model.service';
   styleUrls: ['./chat.component.less']
 })
 export class ChatComponent implements OnInit {
-  isPortraitView: boolean = false;
-  isChatPanelSelect: boolean = false;
+  public isPortraitView: boolean = false;
+  public isChatPanelSelect: boolean = false;
 
   private appModel$!: Observable<AppModel>;
   private appModelSubscription!: Subscription;
