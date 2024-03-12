@@ -1,16 +1,11 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { RouteService } from 'src/app/services/route.service';
 
 @Component({
   selector: 'app-bar',
   templateUrl: './app-bar.component.html',
   styleUrls: ['./app-bar.component.less']
 })
-export class AppBarComponent {
+export class AppBarComponent extends RouteService {
 
-  constructor(private router: Router) {}
-
-  public isActive(route: string) {
-    return this.router.isActive(route, true);
-  }
 }

@@ -9,6 +9,9 @@ export class RouteService {
   constructor(private router: Router) {}
 
   isActive(route: string) {
-    return this.router.isActive(route, true);
+    const routeWithoutParam = this.router.url.includes('?') ? this.router.url.split('?')[0] : this.router.url;
+    const isRouteActive = routeWithoutParam === route;
+
+    return isRouteActive;
   }
 }
