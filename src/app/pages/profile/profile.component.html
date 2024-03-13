@@ -1,31 +1,89 @@
 <div class="main-content justify-center align-items-center">
   <div class="container">
     <div class="profile">
-      <div class="profile-container">
-        <div [class]="isPortraitView ? 'profile-deatils-100' : 'profile-deatils-50'">
-          <div class="header">
-            <h1>Hi! I'm <label>Soravit.</label></h1>
-          </div>
-          <div class="content">
-            I am passionate about innovative technology and design. I am an experienced software engineer. I have played a key role in developing and maintaining a financial platform for Refinitiv, an LSEG (London Stock Exchange Group) company in Thailand. My responsibilities included creating new features, fixing bugs, and conducting unit tests to ensure smooth operation. Additionally, I contributed to code reviews to enhance performance, readability, and scalability, while also validating data requests and responses from backend systems.
-          </div>
-          <div class="madimi-one-regular contact">
-            <div class="contact-item" (click)="openLink('https://drive.google.com/file/d/13EzAdy3C0BKUPcFCCPmOGblAWS24NfXH/view?usp=sharing')">
-              Resume
+      <div class="profile-flex-container">
+        <div class="profile-intro">
+          <div class="intro-box">
+            <div class="intro-header">
             </div>
-            <div class="contact-item" (click)="openLink('https://github.com/sarpound')">
-              GitHub
+            <div class="intro-content">
+              <div class="header">
+                Hi!
+              </div>
+              <div class="header">
+                I'm
+              </div>
+              <div class="header">
+                Soravit
+              </div>
+              <div>
+                Crafting intuitive software experiences loved by users and developers alike. Tech Stack, I experienced <b>React</b>, <b>React Native</b>, <b>Angular</b>, <b>Node JS</b>, and other modern tech stacks.
+              </div>
             </div>
-            <div class="contact-item" (click)="openLink('https://www.linkedin.com/in/soravit-varanich/')">
-              LinkedIn
-            </div>
-            <div class="contact-item" (click)="openLink('mailto:soravit.var@hotmail.com')">
-              Mail
+            <div class="intro-bottom">
+              <label class="email" (click)="openLink('mailto:soravit.var@hotmail.com')">soravit.var&#64;hotmail.com</label>
             </div>
           </div>
         </div>
-        <div class="profile-img" *ngIf="!isPortraitView">
-          <img src="../../../assets/images/profile-me.jpeg" />
+        <div class="profile-nav-con">
+          <div class="profile-nav">
+            <div class="grid-item">
+              <div title="React JS & React Native" class="item-1 d-flex justify-center align-items-center">
+                <div class="grid-container-image">
+                  <img alt="react" src="../../../assets/images/react.svg" />
+                </div>
+              </div>
+            </div>
+            <div class="grid-item">
+              <div title="Angular"  class="item-2 d-flex justify-center align-items-center">
+                <div class="grid-container-image">
+                  <img alt="angular" src="../../../assets/images/angular.svg" />
+                </div>
+              </div>
+            </div>
+            <div class="grid-item" [class]="!isPortraitView ? 'row-span-2' : ''">
+              <div class="item-3" (click)="openLink('/work')">
+                <label class="font-header">
+                  1
+                </label>
+                <div class="font-content">
+                  <label class="underline-dashed cursor-pointer">Project</label>
+                </div>
+              </div>
+            </div>
+            <div class="grid-item" [class]="!isPortraitView ? 'col-span-2 row-span-2' : ''">
+              <div class="item-4 d-flex justify-center align-items-center" (click)="openLink('/work', { projects: 'fxforwards' })">
+                <div class="font-header">
+                  <label class="underline-dashed cursor-pointer">FXForwards</label>
+                </div>
+              </div>
+            </div>
+            <div class="grid-item" *ngIf="!isPortraitView">
+              <div class="item-5 d-flex justify-center align-items-center">
+              </div>
+            </div>
+            <div class="grid-item">
+              <div title="My Resume" class="item-6 d-flex justify-center align-items-center" (click)="openLink('/assets/files/resume.pdf')">
+                <div class="grid-container-image">
+                  <img alt="Resume" src="../../../assets/images/resume.svg" />
+                </div>
+              </div>
+            </div>
+            <div class="grid-item">
+              <div title="Github" class="item-7 d-flex justify-center align-items-center" (click)="openLink('https://github.com/sarpound')">
+                <div class="grid-container-image">
+                  <img alt="Github" src="../../../assets/images/github.svg" />
+                </div>
+              </div>
+            </div>
+            <div class="grid-item">
+              <div title="Linkedin"  class="item-8 d-flex justify-center align-items-center" (click)="openLink('https://www.linkedin.com/in/soravit-varanich')">
+                <div class="grid-container-image">
+                  <img alt="Linkedin" src="../../../assets/images/linkedin.svg" />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

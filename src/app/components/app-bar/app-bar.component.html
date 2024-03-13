@@ -1,12 +1,12 @@
 <nav class="app-bar">
   <ul class="flex-fill">
     <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" style="margin-top: 0;">
-        <apps-button
-          routerLink="/"
-          [label]="'Chat'"
-          [icon]="'chat'"
-          [isActive]="isActive('/')"
-        />
+      <apps-button
+        routerLink="/"
+        [label]="'About'"
+        [icon]="'face'"
+        [isActive]="isActive('/')"
+      />
     </li>
     <li routerLinkActive="active">
       <apps-button
@@ -18,11 +18,11 @@
     </li>
     <li routerLinkActive="active">
       <apps-button
-        routerLink="/profile"
-        [label]="'Profile'"
-        [icon]="'face'"
-        [isActive]="isActive('/profile')"
+        routerLink="/chat"
+        [label]="'Chat'"
+        [icon]="'chat'"
+        [isActive]="isActive('/chat')"
       />
-    </li>
+  </li>
   </ul>
 </nav>

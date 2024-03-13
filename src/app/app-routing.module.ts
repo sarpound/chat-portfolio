@@ -5,9 +5,9 @@ import { WorkComponent } from './pages/work/work.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 
 const routes: Routes = [
-  { path: '', component: ChatComponent },
+  { path: '', component: ProfileComponent },
   { path: 'work', component: WorkComponent },
-  { path: 'profile', component: ProfileComponent }
+  { path: 'chat', component:  ChatComponent}
 ];
 
 @NgModule({

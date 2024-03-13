@@ -2,83 +2,244 @@
   flex: 1 1 auto;
 }
 
-.content {
-  color: #b5b5b5;
-}
-
-.contact {
-  width: 50%;
-  cursor: pointer;
-  margin-top: 20px;
-}
-
-.contact-item {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: large;
-  font-weight: 500;
-  width: 100%;
-  height: 55px;
-  background-color: #202020;
-  border-radius: 20px;
-  margin: 10px;
-  margin-left: 0px;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-.contact-item:hover {
-  background-color: #F3FC8A;
-  color: #202020;
-}
-
 .profile {
   display: flex;
-  height: 480px;
+  height: 80vh;
   min-width: 100%;
   justify-content: center;
   align-items: center;
   max-width: 1600px;
 }
 
-.profile-container {
+.profile-flex-container {
+  font-family: "Raleway", sans-serif;
+  color: #202020;
   display: flex;
   flex-direction: row;
-  width: 80%;
-  height: calc(100% - 30px);
-  padding: 10px;
-}
-
-.profile-deatils-50 {
-  width: 50%;
-}
-
-.profile-deatils-100 {
   width: 100%;
+  height: calc(100% - 30px);
 }
 
-.profile-img {
+.grid-container-image {
+  width: 70%;
+  height: 70%;
+}
+
+.grid-container-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+}
+
+.profile-intro {
+  flex: 2;
+  width: 100%;
+  min-height: 100%;
+}
+
+.profile-nav-con {
+  flex: 3;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 50%;
+  width: 100%;
+  height: 100%;
 }
 
-.profile-img img {
-  width: 80%;
-  height: 90%;
-  border-radius: 10px;
-  overflow: hidden;
+.profile-nav {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 1fr;
+  gap: 20px;
+  padding-left: 40px;
+  padding-right: 40px;
+  width: calc(100% - 80px);
+  height: 100%;
+}
+
+.grid-item {
+  width: 100%;
+  height: 100%;
+  border: 1px solid black;
+}
+
+.item-1 {
+  width: 100%;
+  height: 200px;
+  height: 100%;
+  border-radius: 20px;
+  background-color: #3399FE;
+}
+
+.item-2 {
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  background-color: #a908de;
+}
+
+.item-3 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  line-height: 1;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  background-color: #81de08;
+  cursor: pointer;
+}
+
+.font-header {
+  font-size: xx-large;
+  font-weight: 500;
+}
+
+.font-content {
+  font-size: x-large;
+}
+
+.underline-dashed {
+  border-bottom: 2px dashed #202020;
+}
+
+.item-4 {
+  width: 100%;
+  height: 100%;
+  min-height: 100px;
+  border-radius: 20px;
+  background-color: #dec508;
+  cursor: pointer;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.item-5 {
+  width: 100%;
+  height: 100%;
+  min-height: 100px;
+  height: 100%;
+  border-radius: 20px;
+  background-color: #de7308;
+}
+
+.item-6 {
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  background-color: #0c08de;
+  cursor: pointer;
+}
+
+.item-7 {
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  background-color: #de08cc;
+  cursor: pointer;
+}
+
+.item-8 {
+  width: 100%;
+  height: 100%;
+  height: 100%;
+  border-radius: 20px;
+  background-color: #08de8c;
+  cursor: pointer;
+}
+
+.col-span-2 {
+  grid-column: span 2;
+}
+
+.row-span-2 {
+  grid-row: span 2;
+}
+
+.intro-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  background-color: #02FFDD;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+}
+
+.intro-header {
+  flex: 4;
+}
+
+.intro-content {
+  flex: 5;
+  padding: 20px;
+}
+
+.intro-bottom {
+  flex: 1;
+  padding-left: 20px;
+}
+
+.intro-content .header {
+  font-size: 54px;
+  line-height: 0.6;
+}
+
+.email {
+  border-bottom: 1px dashed #202020;
+  cursor: pointer;
+}
+
+.intro-content .header:nth-child(1) {
+  font-weight: 300;
+}
+
+.intro-content .header:nth-child(2) {
+  font-weight: 500;
+}
+
+.intro-content .header:nth-child(3) {
+  font-weight: 500;
 }
 
 .header {
   margin-bottom: 25px;
 }
 
-.header h1 {
-  font-size: 36px;
-}
+@media screen and (max-width: 768px) {
+  .item-3 {
+    min-height: 200px;
+  }
 
-.header h1 label {
-  color: #F3FC8A;
+  .item-4 {
+    min-height: 200px;
+  }
+
+  .profile-nav-con {
+    height: 80%;
+  }
+
+  .profile-nav {
+    width: 100%;
+    margin-top: 40px;
+    padding: 0;
+
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 1fr;
+
+    justify-content: center;
+    align-items: center;
+  }
+
+  .profile-flex-container{
+    flex-direction: column;
+  }
+
+  .intro-box {
+    width: 100%;
+    height: 100%;
+  }
 }
