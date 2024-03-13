@@ -41,7 +41,7 @@ export class AppHeaderComponent implements OnInit {
   }
 
   get isChatRoute(): boolean {
-    return this.router.url === '/';
+    return this.router.url === '/chat';
   }
 
   get isWorkProjectRoute(): boolean {
