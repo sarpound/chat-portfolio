@@ -9,6 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 
 export class WorkComponent implements OnInit {
   public showFXForwards: boolean = false;
+  public showParticleAppProxy: boolean = false;
 
   constructor(private route: ActivatedRoute) { }
 
@@ -16,6 +17,8 @@ export class WorkComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       if (params['projects'] === 'fxforwards') {
         this.showFXForwards = true;
+      } else if (params['projects'] === 'particle-app-proxy') {
+        this.showParticleAppProxy = true;
       } else {
         this.showFXForwards = false;
       }

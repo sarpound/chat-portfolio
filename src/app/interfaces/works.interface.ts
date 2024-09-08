@@ -18,4 +18,5 @@ export interface IworkProject {
   techStack?: string[];
   imageUrl: string;
   loading: boolean;
+  display: boolean;
 }

@@ -5,8 +5,8 @@
     </h2>
   </div>
   <div class="work-project-wrap">
-    <div *ngFor="let item of workProjects" (click)="item.routeName !== 'particle-app-proxy' ? navigateToRouteWithParams(item.routeName) : null">
-      <div class="work-project-item" *ngIf="item.routeName !== 'particle-app-proxy'">
+    <div *ngFor="let item of workProjects" (click)="navigateToRouteWithParams(item.routeName)">
+      <div class="work-project-item" *ngIf="item.display">
         <div class="work-project-img">
           <div class="img-wait-mock" *ngIf="item.loading"></div>
           <img [src]="item.imageUrl" [alt]="item.name" (load)="item.loading = false" (error)="item.loading = false">
