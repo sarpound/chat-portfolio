@@ -44,6 +44,6 @@ export const WORK_PROJECTS: IworkProject[] = [
     techStack: ['Angular 15', 'RxJs', 'Node Js', 'Express Js', 'Service Worker'],
     imageUrl: '/assets/images/particle_app_proxy.png',
     loading: true,
-    display: true
+    display: false
   }
 ];

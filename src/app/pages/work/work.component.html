@@ -1,14 +1,18 @@
 <!-- <div style="font-size: 0.8rem; font-weight: bold; text-align: center; background-color: #FFA000;" class="dev-progress-warning">
   ⚠️👷🏗️ DEVELOPMENT IN PROGRESS...
 </div> -->
-<div class="main-content justify-center align-items-center" *ngIf="!showFXForwards">
+<div class="main-content justify-center align-items-center" *ngIf="showWorkProjects">
   <div class="container">
     <div  class="mb-50">
       <carousel />
     </div>
     <work-project />
+    <personal-project *ngIf="false" />
   </div>
 </div>
 <div class="w-100 h-100" *ngIf="showFXForwards">
   <app-fxforward /> <!--description อธิบายแอปอาจจะทำเป็น icon info ละกดปุ้บข้อมูลเด้งขึ้นมาเบื้องหลังหลักหารทำงาน-->
+</div>
+<div class="w-100 h-100" *ngIf="showParticleAppProxy">
+  <app-particle-app-proxy />
 </div>

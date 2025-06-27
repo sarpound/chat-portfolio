@@ -1,0 +1,24 @@
+<div class="work-project">
+  <div class="titlebar mb-18">
+    <h2 class="font-header">
+      Work Projects
+    </h2>
+  </div>
+  <div class="work-project-wrap">
+    <div *ngFor="let item of workProjects" (click)="navigateToRouteWithParams(item.routeName)">
+      <div class="work-project-item" *ngIf="item.display">
+        <div class="work-project-img">
+          <div class="img-wait-mock" *ngIf="item.loading"></div>
+          <img [src]="item.imageUrl" [alt]="item.name" (load)="item.loading = false" (error)="item.loading = false">
+        </div>
+        <div class="work-project-descript-wrap">
+          <span class="project-name">{{  item.companyName }}Personal Project</span>
+          <div class="work-project-descript">
+            <!-- อาจจะแก้ให้ใส่คำอธิบายจรงนี้ได้ด้วย ปัญหาข้อความยาวเกินกรอบเพราะ nowrap ใน parent ไว้ -->
+            {{ item.name }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

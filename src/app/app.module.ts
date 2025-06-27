@@ -26,6 +26,8 @@ import { AngularFireAnalyticsModule } from "@angular/fire/compat/analytics";
 import { AngularFireModule } from "@angular/fire/compat";
 
 import { environment } from './environments/environment';
+import { AppParticleAppProxyComponent } from "./components/app-particle-app-proxy/app-particle-app-proxy.component";
+import { PersonalProjectComponent } from "./components/personal-project/personal-project.component";
 
 
 @NgModule({
@@ -53,8 +55,10 @@ import { environment } from './environments/environment';
     HttpClientModule,
     MaterialModule,
     WorkProjectComponent,
-    ProfileComponent
-  ],
+    ProfileComponent,
+    AppParticleAppProxyComponent,
+    PersonalProjectComponent
+],
   providers: [
     ScreenTrackingService,
     UserTrackingService
